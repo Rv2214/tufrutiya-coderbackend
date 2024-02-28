@@ -1,0 +1,17 @@
+<div class="d-flex flex-wrap justify-content-evenly m-6 my-4">
+  {{#each products}}
+    
+    <div class="card mb-4" style="width: 20rem; height: 400px;">
+      
+      <img src="{{photo}}" class="card-img-top h-50" alt="frutas" />
+      <div class="card-body">
+        <h5 class="card-title">{{title}}</h5>
+        <p>Price: {{price}}</p>
+        <p>Stock: {{stock}}</p>
+        <a href="#" class="btn btn-primary">Details</a>
+      </div>
+    
+    </div>
+    
+  {{/each}}
+</div>

@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0px;
+  box-sizing: content-box;
+}
+
+body {
+  background-color: wheat;
+}
+
+main {
+  color: palevioletred;
+}
+
+.bodyform {
+  background-color: wheat;
+}
+
+.image-container {
+  width: 100%;
+  overflow: hidden;
+  /* Esto es importante para que la imagen no se desborde del contenedor */
+}
+
+.img-index {
+  width: 50%;
+
+  animation: enlarge 1s ease;
+  /* Animación al cargar la página */
+}
+
+@keyframes enlarge {
+  from {
+    width: 0;
+    /* Ancho inicial de la imagen */
+  }
+
+  to {
+    width: 50%;
+    /* Ancho final de la imagen */
+  }
+}

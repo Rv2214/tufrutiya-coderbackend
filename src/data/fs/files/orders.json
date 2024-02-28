@@ -1,0 +1,15 @@
+[
+  {
+    "id": "7b6f93db8d055ddf6d4845ff",
+    "userId": "8e466afd0f90323eb890110e",
+    "product": {
+      "id": "101e8d95a8c88c8924f468b9",
+      "title": "manzanas",
+      "photo": "sin imagen",
+      "price": 1000,
+      "stock": 250
+    },
+    "quantity": 10,
+    "createdAt": "2024-01-09T22:57:55.211Z"
+  }
+]

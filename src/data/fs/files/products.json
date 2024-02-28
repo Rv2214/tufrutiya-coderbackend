@@ -1,0 +1,85 @@
+[
+  {
+    "id": "101e8d95a8c88c8924f468b9",
+    "title": "manzanas",
+    "photo": "https://i.postimg.cc/B6bdb0xy/manzanas.jpg",
+    "price": 1000,
+    "stock": 0
+  },
+  {
+    "id": "ae1464f315e7396f58aa12ba",
+    "title": "frutillas",
+    "photo": "https://i.postimg.cc/25GD3Ggq/frutillas.jpg",
+    "price": "500",
+    "stock": 50
+  },
+  {
+    "id": "fc60657f25ca32e8cd231f06",
+    "title": "sandias",
+    "photo": "https://i.postimg.cc/SRCqQ444/sandia.jpg",
+    "price": "5000",
+    "stock": "3000"
+  },
+  {
+    "id": "7902e119a2816c602ef79b48",
+    "title": "duraznos",
+    "photo": "https://i.postimg.cc/tCnpDhnf/duraznos.jpg",
+    "price": "5000",
+    "stock": "1000"
+  },
+  {
+    "id": "fe9972a20a397afc344d3550",
+    "title": "kiwis",
+    "photo": "https://i.postimg.cc/BvSWWDtJ/kiwis.jpg",
+    "price": "2000",
+    "stock": 490
+  },
+  {
+    "id": "0744d88454db90cc7b45d1c3",
+    "title": "bananas",
+    "photo": "https://i.postimg.cc/ZnCZGN7W/bananas.jpg",
+    "price": "1500",
+    "stock": "1000"
+  },
+  {
+    "id": "7c1f27dea6e1c5a978168ee0",
+    "title": "naranjas",
+    "photo": "https://i.postimg.cc/9z5SLwv5/naranjas.jpg",
+    "price": "1000",
+    "stock": "2000"
+  },
+  {
+    "id": "5a0fcb838e03bc6ecc9edc2d",
+    "title": "peras",
+    "photo": "https://i.postimg.cc/Y9JMw9J8/peras.jpg",
+    "price": "1500",
+    "stock": "1000"
+  },
+  {
+    "id": "b2e218f22a064654bf093d77",
+    "title": "BANANAS",
+    "price": "10000",
+    "stock": "10000"
+  },
+  {
+    "id": "e6f93ac950aa04f5d51bb3e8",
+    "title": "asdasd",
+    "photo": "asdasd",
+    "price": "123123",
+    "stock": "123123"
+  },
+  {
+    "id": "fd376c12b256a28a26215e1d",
+    "title": "sadasda",
+    "photo": "asda",
+    "price": "12312313",
+    "stock": "12312313"
+  },
+  {
+    "id": "a8ba3270a340cb5b504f6ad4",
+    "title": "sadasda",
+    "photo": "asda",
+    "price": "12312313",
+    "stock": "12312313"
+  }
+]
