@@ -2,10 +2,20 @@ import { Router } from "express";
 /* import product from "../../data/fs/products.fs.js"; */
 import { product } from "../../data/mongo/manager.mongo.js";
 
+
+
 const productRouter = Router();
+
+///productRouter.get(authenticationMiddleware); 
+
+
+
+
 
 productRouter.get("/", async (req, res, next) => {
   try {
+    const userRole = req.session.role;
+    const isAuthenticated = req.session.email ? true : false;  
     const perPage = 10; // Número de productos por página
     const page = parseInt(req.query.page) || 1; // Página actual, predeterminada a 1 si no se proporciona
     const orderAndPaginate = {
@@ -35,6 +45,7 @@ productRouter.get("/", async (req, res, next) => {
       currentPage: page,
       hasPreviousPage: page > 1,
       perPage,
+      userRole, isAuthenticated, isLoggedIn: isAuthenticated   
     });
   } catch (error) {
     return next(error);
@@ -44,7 +55,11 @@ productRouter.get("/", async (req, res, next) => {
 
 productRouter.get("/form", (req, res, next) => {
   try {
-    return res.render("form");
+    const userRole = req.session.role;
+    const isAuthenticated = req.session.email ? true : false;  
+    return res.render("form", {
+      userRole, isAuthenticated, isLoggedIn: isAuthenticated 
+    });
   } catch (error) {
     next(error);
   }

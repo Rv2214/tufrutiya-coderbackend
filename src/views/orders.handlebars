@@ -1,0 +1,21 @@
+<div class="container">
+  <h1>Orders</h1>
+  {{#each orders}}
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Order Information</h5>
+        <p>Order ID: {{_id}}</p>
+        <p>State: {{state}}</p>
+        <p>Created At: {{createdAt}}</p>
+        <p>Updated At: {{updatedAt}}</p>
+        <p>Product ID: {{product_id}}</p>
+        <p>Quantity: {{quantity}}</p>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">User Information</h5>
+        <p>User ID: {{user_id}}</p>
+        <p>Email: {{email}}</p>
+      </div>
+    </div>
+  {{/each}}
+</div>

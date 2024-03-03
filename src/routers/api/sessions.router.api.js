@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { user } from "../../data/mongo/manager.mongo.js";
+/* import { user } from "../../data/mongo/manager.mongo.js"; */
 import has8char from "../../middlewares/has8char.js";
-import isValidPass from "../../middlewares/isValidPass.mid.js";
+/* import isValidPass from "../../middlewares/isValidPass.mid.js"; */
 import passport from "../../middlewares/passport.mid.js";
 
 const sessionsRouter = Router();

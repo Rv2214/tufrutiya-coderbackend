@@ -16,6 +16,7 @@ import router from "./src/routers/index.router.js";
 import pathHandler from "./src/middlewares/pathHandler.mid.js";
 import errorHandler from "./src/middlewares/errorHandler.mid.js";
 import __dirname from "./utils.js";
+import Handlebars from 'handlebars';
 
 //server
 const server = express();
@@ -35,6 +36,7 @@ socketServer.on("connection", socketUtils);
 server.engine("handlebars", engine());
 server.set("view engine", "handlebars");
 server.set("views", __dirname+"/src/views");
+Handlebars.registerPartial('navbar', '/src/views/partials');
 
 //middlewares
 server.use(expressSesssion({

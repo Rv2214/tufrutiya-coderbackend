@@ -15,7 +15,7 @@ selector.addEventListener("click", async () => {
     //console.log(response);
     if(response.statusCode === 200) {
       alert(response.message);
-      location.replace("/products");
+      location.replace("/");
     }else{
       alert("ERROR: " + response.message);
     }

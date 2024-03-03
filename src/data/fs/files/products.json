@@ -81,5 +81,12 @@
     "photo": "asda",
     "price": "12312313",
     "stock": "12312313"
+  },
+  {
+    "id": "b6c42070edc3b086c94267ae",
+    "title": "manzanas",
+    "photo": "https://i.postimg.cc/tCnpDhnf/duraznos.jpg",
+    "price": "1500",
+    "stock": "500"
   }
 ]

@@ -101,7 +101,7 @@ productsRouter.delete("/:pid", async (req, res, next) => {
   }
 });
 
-productsRouter.post("/", isAdmin, propsProducts, async (req, res, next) => {
+productsRouter.post("/", propsProducts, async (req, res, next) => {
   try {
     const data = req.body;
     const response = await product.create(data);
