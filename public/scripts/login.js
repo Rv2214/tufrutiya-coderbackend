@@ -12,20 +12,20 @@ selector.addEventListener("click", async () => {
     };
     let response = await fetch("/api/sessions/login", opts);
     response = await response.json();
-    //console.log(response);
-    if(response.statusCode === 200) {
+    console.log(response);
+    if (response.statusCode === 200) {
       alert(response.message);
       location.replace("/");
-    }else{
+      localStorage.setItem("token", response.token);
+    } else {
       alert("ERROR: " + response.message);
     }
-/*     alert(response.message);
+    /*     alert(response.message);
     response.session &&  */
   } catch (error) {
     alert(error.message);
   }
 });
-
 
 const googleLoginButton = document.querySelector("#google-login");
 googleLoginButton.addEventListener("click", async () => {
