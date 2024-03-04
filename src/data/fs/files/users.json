@@ -1,0 +1,44 @@
+[
+  {
+    "id": "8e466afd0f90323eb890110e",
+    "name": "Jose",
+    "email": "Jose@hotmail.com",
+    "photo": "sin imagen"
+  },
+  {
+    "id": "a5100f85fb83a92721958299",
+    "name": "Raul",
+    "email": "Raul@hotmail.com",
+    "photo": "sin imagen"
+  },
+  {
+    "id": "856c21c5ecc9b37f8c4f20ee",
+    "name": "Rodrigo",
+    "email": "rodrigo@postman.com",
+    "photo": "sin imagen"
+  },
+  {
+    "id": "8516a3c489d53e0d73083422",
+    "name": "Walter",
+    "email": "walterx@hotmail.com",
+    "photo": "sin imagen"
+  },
+  {
+    "id": "f23536daf315017510e63f50",
+    "name": "Silvana",
+    "email": "silvana@gmail.com",
+    "photo": "sin imagen"
+  },
+  {
+    "id": "28d8cd569b2faa23d51c64eb",
+    "name": "Martina",
+    "email": "martina@gmail.com",
+    "photo": "sin imagen"
+  },
+  {
+    "id": "82ced8e675b28665783c77dd",
+    "name": "Martina",
+    "email": "martina@gmail.com",
+    "photo": "sin imagen"
+  }
+]
