@@ -5,7 +5,7 @@ logoutButton.addEventListener("click", async () => {
     const token = localStorage.getItem("token")
     const opts = {
       method: "POST",
-      headers: { "Content-Type": "application/json", token},
+      headers: { "Content-Type": "application/json" /*,  token */ },
     }
     let response = await fetch("/api/sessions/signout", opts) 
     response = await response.json();
