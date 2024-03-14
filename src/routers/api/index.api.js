@@ -5,6 +5,7 @@ import ProductsRouter from "./products.router.js";
 import ordersRouter from "./orders.router.js";
 import sessionsRouter from "./sessions.router.api.js";
 import passCallBackMid from "../../middlewares/passCallBack.mid.js";
+
 /* import passport from "../../middlewares/passport.mid.js"; */
 
 const product = new ProductsRouter()

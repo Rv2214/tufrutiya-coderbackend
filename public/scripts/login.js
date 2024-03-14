@@ -21,7 +21,7 @@ selector.addEventListener("click", async () => {
     //utilizo los metodos correspondientes para cerrar la sesion y volver la pagina de inicio 
     if (response.statusCode === 200) {
       alert(response.message);
-      location.replace("/");
+      location.replace("/products");
       //localStorage.setItem("token", response.token);
     } else {
       alert("ERROR: " + response.message);

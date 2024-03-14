@@ -1,64 +1,61 @@
 import { Router } from "express";
-/* import product from "../../data/fs/products.fs.js"; */
 import { product } from "../../data/mongo/manager.mongo.js";
-
-
+/* import product from "../../data/fs/products.fs.js"; */
 
 const productRouter = Router();
 
-///productRouter.get(authenticationMiddleware); 
-
-
-
-
+///productRouter.get(authenticationMiddleware);
 
 productRouter.get("/", async (req, res, next) => {
   try {
-    const userRole = req.session.role;
-    const isAuthenticated = req.session.email ? true : false;  
-    const perPage = 10; // Número de productos por página
+    const isAuthenticated = !!req.user;
+    // Determina si el usuario es un administrador (esto depende de cómo se estructura el token)
+    const isAdmin = req.user && req.user.role === "admin";
+    const perPage = 4; // Número de productos por página
     const page = parseInt(req.query.page) || 1; // Página actual, predeterminada a 1 si no se proporciona
-    const orderAndPaginate = {
-      limit: req.query.limit || 20,
+    const options = {
+      limit: 4,
       page: req.query.page || 1,
       sort: { title: 1 },
+      lean: true,
     };
     const filter = {};
     if (req.query.title) {
       filter.title = new RegExp(req.query.title.trim(), "i");
     }
     if (req.query.sort === "desc") {
-      orderAndPaginate.sort.title = "desc";
+      options.sort.title = "desc";
     }
-    const all = await product.read({ filter, orderAndPaginate });
-    console.log(product);
-
-    if (all.docs.lenght === 0) {
+    const all = await product.read({ filter, options });
+    console.log();
+    if (all.docs.length === 0) {
       return res.render("products", {
         products: [],
         message: "Not found products",
       });
     }
-    const plainProducts = all.docs.map(product => product.toObject());
     return res.render("products", {
-      products: plainProducts,
-      currentPage: page,
-      hasPreviousPage: page > 1,
+      products: all.docs,
+      next: all.nextPage,
+      prev: all.prevPage,
+      filter: req.query.title,
       perPage,
-      userRole, isAuthenticated, isLoggedIn: isAuthenticated   
+      isAdmin,
+      isAuthenticated,
     });
   } catch (error) {
     return next(error);
   }
 });
 
-
 productRouter.get("/form", (req, res, next) => {
   try {
-    const userRole = req.session.role;
-    const isAuthenticated = req.session.email ? true : false;  
+    const isAuthenticated = !!req.user;
+    // Determina si el usuario es un administrador (esto depende de cómo se estructura el token)
+    const isAdmin = req.user && req.user.role === "admin";
     return res.render("form", {
-      userRole, isAuthenticated, isLoggedIn: isAuthenticated 
+      isAdmin,
+      isAuthenticated,
     });
   } catch (error) {
     next(error);
@@ -72,7 +69,5 @@ productRouter.get("/real", (req, res, next) => {
     next(error);
   }
 });
-
-//falta configurar demas funciones
 
 export default productRouter;

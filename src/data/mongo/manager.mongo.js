@@ -17,9 +17,9 @@ class MongoManager {
     }
   }
 
-  async read({ filter, orderAndPaginate }) {
+  async read({ filter, options }) {
     try {
-      const all = await this.model.paginate(filter, orderAndPaginate);
+      const all = await this.model.paginate(filter, options);
       console.log(all.docs);
       if (all.totalPages === 0) {
         const error = new Error("There aren't documents");
@@ -113,7 +113,7 @@ class MongoManager {
   async stats({ filter }) {
     try {
       let stats = await this.model.find(filter).explain("executionStats");
-      console.log(stats);
+      
       stats = {
         quantity: stats.executionStats.nReturned,
         time: stats.executionStats.executionTimeMillis,

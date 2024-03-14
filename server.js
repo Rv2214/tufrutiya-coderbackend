@@ -18,6 +18,7 @@ import errorHandler from "./src/middlewares/errorHandler.mid.js";
 import __dirname from "./utils.js";
 import Handlebars from 'handlebars';
 
+
 //server
 const server = express();
 const PORT = process.env.PORT || 8080;
@@ -39,6 +40,8 @@ server.set("views", __dirname+"/src/views");
 Handlebars.registerPartial('navbar', '/src/views/partials');
 
 //middlewares
+
+/* para la entrega meter react con server.use{cors({origin:true, credentials: true })} */
 server.use(expressSesssion({
     secret: process.env.SECRET_KEY,
     resave: true,

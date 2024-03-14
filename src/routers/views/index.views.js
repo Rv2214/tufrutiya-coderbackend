@@ -1,23 +1,27 @@
-/* import { Router } from "express"; */
 import CustomRouter from "../CustomRouter.js";
-import { product } from "../../data/mongo/manager.mongo.js"
-
-/* import isLoggedInMid from "../../middlewares/isLoggedIn.mid.js"; */
+import { product } from "../../data/mongo/manager.mongo.js";
 import productRouter from "./products.views.js";
 import sessionsRouter from "./sessions.views.js";
-//import passport from "../../middlewares/passport.mid.js";
 import orderRouter from "./orders.views.js";
-
+import isAuth from "../../middlewares/isAuth.js";
+//import passport from "../../middlewares/passport.mid.js";
+/* import isLoggedInMid from "../../middlewares/isLoggedIn.mid.js"; */
+/* import { Router } from "express"; */
 
 export default class ViewsRouter extends CustomRouter {
-  init(){
-    this.router.use("/products", productRouter)
+  init() {
+    this.router.use("/products", isAuth, productRouter);
     this.router.use("/sessions", sessionsRouter);
-    this.router.use("/orders", orderRouter);
-    this.read("/", /* ["PUBLIC"], */ async (req, res, next) => {
+    this.router.use("/orders", isAuth, orderRouter);
+    //arreglar esto, sin isAuth se renderizan todos los botones del navbar, con isAuth no se ve nada sin logear...
+    this.read("/", ["PUBLIC"], async (req, res, next) => {
       try {
+        const isAuthenticated = !!req.user;
+        // Determina si el usuario es un administrador (esto depende de cómo se estructura el token)
+        const isAdmin = req.user && req.user.role === "admin";
+        const perPage = 3;
         const options = {
-          limit: req.query.limit || 4,
+          limit: 3,
           page: req.query.page || 1,
           sort: { title: 1 },
           lean: true,
@@ -30,21 +34,27 @@ export default class ViewsRouter extends CustomRouter {
           options.sort.title = "desc";
         }
         const all = await product.read({ filter, options });
+        if (all.docs.length === 0) {
+          return res.render("index", {
+            products: [],
+            message: "Not found products",
+          });
+        }
         return res.render("index", {
-          events: all.docs,
+          products: all.docs,
           next: all.nextPage,
           prev: all.prevPage,
-          title: "INDEX",
           filter: req.query.title,
+          perPage,
+          isAuthenticated,
+          isAdmin,
         });
       } catch (error) {
-        next(error);
+        return next(error);
       }
     });
   }
 }
-
-
 
 /* viewsRouter.get("/", (req, res, next) => {
   try {

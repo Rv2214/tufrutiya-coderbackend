@@ -51,7 +51,7 @@ export default class CustomRouter {
             (role === 2 && arrayOfPolicies.includes("PREM"))
           ) {
             const one = await user.readByEmail(email);
-            req.user = one;
+            req.one = one;
             return next();
           } else return res.error403();
         }
@@ -65,16 +65,16 @@ export default class CustomRouter {
     this.router.post(path, this.responses, this.policies(policies), this.applyCbs(cbs));
   }
 
-  read(path, ...cbs) {
-    this.router.get(path, this.responses, this.policies(), this.applyCbs(cbs));
+  read(path, policies, ...cbs) {
+    this.router.get(path, this.responses, this.policies(policies), this.applyCbs(cbs));
   }
 
-  update(path, ...cbs) {
-    this.router.put(path, this.responses, this.policies(), this.applyCbs(cbs));
+  update(path, policies, ...cbs) {
+    this.router.put(path, this.responses, this.policies(policies), this.applyCbs(cbs));
   }
 
-  destroy(path, ...cbs) {
-    this.router.delete(path, this.responses, this.policies(), this.applyCbs(cbs));
+  destroy(path, policies, ...cbs) {
+    this.router.delete(path, this.responses, this.policies(policies), this.applyCbs(cbs));
   }
 
   use(path, ...cbs) {
