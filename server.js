@@ -1,4 +1,4 @@
-import "dotenv/config.js"
+import env from "./src/utils/env.util.js"
 
 import express from "express";
 import { createServer } from "http";
@@ -10,7 +10,7 @@ import socketUtils from "./src/utils/socket.utils.js";
 import dbConnection from "./src/utils/db.js";
 import expressSesssion from "express-session"
 import MongoStore from "connect-mongo";
-
+import args from "./src/utils/args.utils.js"
 
 import IndexRouter from "./src/routers/index.router.js";
 import pathHandler from "./src/middlewares/pathHandler.mid.js";
@@ -21,7 +21,7 @@ import Handlebars from 'handlebars';
 
 //server
 const server = express();
-const PORT = process.env.PORT || 8080;
+const PORT = env.PORT || 8080;
 const ready = () => {
     console.log("server ready on port: " + PORT);
     dbConnection();  
@@ -73,3 +73,5 @@ server.use(pathHandler);
 
 
 export { socketServer }
+
+console.log(args);
