@@ -62,19 +62,39 @@ export default class CustomRouter {
   };
 
   create(path, policies, ...cbs) {
-    this.router.post(path, this.responses, this.policies(policies), this.applyCbs(cbs));
+    this.router.post(
+      path,
+      this.responses,
+      this.policies(policies),
+      this.applyCbs(cbs)
+    );
   }
 
   read(path, policies, ...cbs) {
-    this.router.get(path, this.responses, this.policies(policies), this.applyCbs(cbs));
+    this.router.get(
+      path,
+      this.responses,
+      this.policies(policies),
+      this.applyCbs(cbs)
+    );
   }
 
   update(path, policies, ...cbs) {
-    this.router.put(path, this.responses, this.policies(policies), this.applyCbs(cbs));
+    this.router.put(
+      path,
+      this.responses,
+      this.policies(policies),
+      this.applyCbs(cbs)
+    );
   }
 
   destroy(path, policies, ...cbs) {
-    this.router.delete(path, this.responses, this.policies(policies), this.applyCbs(cbs));
+    this.router.delete(
+      path,
+      this.responses,
+      this.policies(policies),
+      this.applyCbs(cbs)
+    );
   }
 
   use(path, ...cbs) {

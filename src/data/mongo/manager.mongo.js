@@ -1,6 +1,7 @@
 import User from "./models/user.model.js";
 import Product from "./models/product.model.js";
 import Order from "./models/order.model.js";
+import Comment from "./models/comment.model.js";
 import notFoundOne from "../../utils/notFoundOne.utils.js";
 import { Types } from "mongoose";
 
@@ -82,7 +83,7 @@ class MongoManager {
     try {
       const one = await this.model.findOne({ email });
       //notFoundOne(one);
-      //aqui no va la funcion 
+      //aqui no va la funcion
       return one;
     } catch (error) {
       throw error;
@@ -113,7 +114,7 @@ class MongoManager {
   async stats({ filter }) {
     try {
       let stats = await this.model.find(filter).explain("executionStats");
-      
+
       stats = {
         quantity: stats.executionStats.nReturned,
         time: stats.executionStats.executionTimeMillis,
@@ -128,6 +129,7 @@ class MongoManager {
 const user = new MongoManager(User);
 const product = new MongoManager(Product);
 const order = new MongoManager(Order);
+const comments = new MongoManager(Comment);
 
-export { user, product, order };
+export { user, product, order, comments };
 export default MongoManager;

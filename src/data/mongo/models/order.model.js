@@ -18,12 +18,13 @@ const schema = new Schema(
   { timestamps: true }
 );
 
-
-
-schema.pre("find",function(){ this.populate("user_id", "name -password -createdAt -updatedAt -__v") })
-schema.pre("find", function() { this.populate("product_id", "title price stock")})
+schema.pre("find", function () {
+  this.populate("user_id", "name -password -createdAt -updatedAt -__v");
+});
+schema.pre("find", function () {
+  this.populate("product_id", "title price stock");
+});
 schema.plugin(mongoosePaginate);
-
 
 const Order = model(collection, schema);
 
