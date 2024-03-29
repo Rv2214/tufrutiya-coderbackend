@@ -1,5 +1,5 @@
 import CustomRouter from "../CustomRouter.js";
-import { product } from "../../data/mongo/manager.mongo.js";
+import products from "../../data/mongo/products.mongo.js";
 import productRouter from "./products.views.js";
 import sessionsRouter from "./sessions.views.js";
 import orderRouter from "./orders.views.js";
@@ -33,7 +33,7 @@ export default class ViewsRouter extends CustomRouter {
         if (req.query.sort === "desc") {
           options.sort.title = "desc";
         }
-        const all = await product.read({ filter, options });
+        const all = await products.read({ filter, options });
         if (all.docs.length === 0) {
           return res.render("index", {
             products: [],

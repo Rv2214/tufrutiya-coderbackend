@@ -1,125 +1,104 @@
 import fs from "fs";
-import crypto from "crypto";
+import notFoundOne from "../../utils/notFoundOne.utils.js";
 
-class userManager {
-  static #users = [];
-
-  constructor(path) {
-    this.path = path;
-    //this.users = [];
-    this.init();
-  }
-
+class UsersManager {
   init() {
     try {
-      const file = fs.existsSync(this.path);
-      if (!file) {
-        fs.writeFileSync(this.path, JSON.stringify([], null, 2));
+      const exists = fs.existsSync(this.path);
+      if (!exists) {
+        const data = JSON.stringify([], null, 2);
+        fs.writeFileSync(this.path, data);
       } else {
-        const fileContent = fs.readFileSync(this.path, "utf-8");
-        if (fileContent.trim() === "") {
-          userManager.#users = [];
-        } else {
-          userManager.#users = JSON.parse(fileContent);
-        }
+        this.users = JSON.parse(fs.readFileSync(this.path, "utf-8"));
       }
     } catch (error) {
-      console.error("Error initializing usersManager:", error.message);
+      throw error;
     }
   }
-
-  async createUser(data) {
+  constructor(path) {
+    this.path = path;
+    this.users = [];
+    this.init();
+  }
+  async create(data) {
     try {
-      if (!data.name || !data.email) {
-        throw new Error("name & email required");
-      } else {
-        const user = {
-          id: crypto.randomBytes(12).toString("hex"),
-          name: data.name,
-          email: data.email,
-          photo: "sin imagen",
-        };
-        userManager.#users.push(user);
-        await fs.promises.writeFile(
-          this.path,
-          JSON.stringify(userManager.#users, null, 2)
-        );
-        console.log("create " + user.id);
-        return true;
-      }
+      this.users.push(data);
+      const jsonData = JSON.stringify(this.users, null, 2);
+      await fs.promises.writeFile(this.path, jsonData);
+      return data;
     } catch (error) {
-      return error.message;
+      throw error;
     }
   }
-
-  read() {
+  read({ filter, options }) {
+    //este metodo para ser compatible con las otras persistencias
+    //necesita agregar los filtros
+    //y la paginacion/orden
     try {
-      if (userManager.#users.length === 0) {
-        throw new Error("No se encontraron usuarios");
+      if (this.users.length === 0) {
+        const error = new Error("NOT FOUND!");
+        error.statusCode = 404;
+        throw error;
       } else {
-        return userManager.#users;
+        return this.users;
       }
     } catch (error) {
-      return error.message;
+      throw error;
     }
   }
   readOne(id) {
     try {
-      const userId = userManager.#users.find((each) => each.id === id);
-      if (!userId) {
-        throw new Error("no se encontro el usuario");
+      const one = this.users.find((each) => each._id === id);
+      if (!one) {
+        const error = new Error("NOT FOUND!");
+        error.statusCode = 404;
+        throw error;
       } else {
-        return userId;
+        return one;
       }
     } catch (error) {
-      return error.message;
+      throw error;
     }
   }
-
+  readByEmail(email) {
+    try {
+      const one = this.users.find((each) => each.email === email);
+      if (!one) {
+        return null;
+      } else {
+        return one;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+  async update(eid, data) {
+    try {
+      const one = this.readOne(eid);
+      notFoundOne(one)
+      for (let each in data) {
+        one[each] = data[each]
+      }
+      const jsonData = JSON.stringify(this.users, null, 2);
+      await fs.promises.writeFile(this.path, jsonData);
+      return one;
+    } catch (error) {
+      throw error;
+    }
+  }
   async destroy(id) {
     try {
-      const index = userManager.#users.findIndex((user) => user.id === id);
-
-      if (index === -1) {
-        throw new Error("No se encontró el usuario con el ID proporcionado");
-      }
-
-      userManager.#users.splice(index, 1);
-
-      await fs.promises.writeFile(
-        this.path,
-        JSON.stringify(userManager.#users, null, 2)
-      );
-      return {
-        message: `Usuario borrado correctamente`,
-        updatedUsers: userManager.#users,
-      };
+      const one = this.readOne(id);
+      notFoundOne(one)
+      this.users = this.users.filter((each) => each._id !== id);
+      const jsonData = JSON.stringify(this.users, null, 2);
+      await fs.promises.writeFile(this.path, jsonData);
+      return one;
     } catch (error) {
-      return error.message;
-    }
-  }
-
-  async update(id, newData) {
-    try {
-      const index = userManager.#users.findIndex((user) => user.id === id);
-      if (index === -1) {
-        throw new Error("No se encontro el producto con el ID proporcionado");
-      }
-
-      const updatedUser = { ...userManager.#users[index], ...newData };
-      userManager.#users[index] = updatedUser;
-
-      await fs.promises.writeFile(
-        this.path,
-        JSON.stringify(userManager.#users, null, 2)
-      );
-      return updatedUser;
-    } catch (error) {
-      error.message;
+      throw error;
     }
   }
 }
 
-const user = new userManager("./src/data/fs/files/users.json");
-
-export default user;
+const users = new UsersManager("./src/data/fs/files/users.json");
+export default users;

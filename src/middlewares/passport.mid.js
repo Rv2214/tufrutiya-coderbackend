@@ -4,7 +4,11 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth2";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import { createHash, verifyHash } from "../utils/hash.utils.js";
 import { createToken } from "../utils/token.utils.js";
-import { user } from "../data/mongo/manager.mongo.js";
+
+import UserDTO from '../dto/user.dto.js';
+import dao from "../data/index.factory.js";
+const { users } = dao
+/* import users from "../../src/data/mongo/users.mongo.js" */
 //import isValidPass from "./isValidPass.mid.js";
 const { GOOGLE_ID, GOOGLE_CLIENT, SECRET } = process.env;
 
@@ -14,15 +18,16 @@ passport.use(
     { passReqToCallback: true, usernameField: "email" },
     async (req, email, password, done) => {
       try {
-        let one = await user.readByEmail(email);
+        let one = await users.readByEmail(email);
         if (!one) {
           let data = req.body;
           data.password = createHash(password);
-          let newUser = await user.create(data);
-          return done(null, newUser);
+          data = new UserDTO(data)
+          let user = await users.create(data);
+          return done(null, user);
         } else {
           return done(null, false, {
-            message: "Already exists",
+            message: "User already exists",
             statusCode: 400,
           });
         }
@@ -32,24 +37,19 @@ passport.use(
     }
   )
 );
-
 passport.use(
   "login",
   new LocalStrategy(
     { passReqToCallback: true, usernameField: "email" },
     async (req, email, password, done) => {
       try {
-        const one = await user.readByEmail(email);
-        if (one && verifyHash(password, one.password)) {
-          /*           req.session.email = email;
-          req.session.role = one.role;  */
-          const token = createToken({ email, role: one.role });
+        const user = await users.readByEmail(email);
+        if (user && verifyHash(password, user.password)) {
+          const token = createToken({ email, role: user.role });
           req.token = token;
-          console.log(token);
-          console.log(one);
-          return done(null, one);
+          return done(null, user);
         } else {
-          return done(null, false, { message: "Bad auth from passport cb" });
+          return done(null, false, { message: "Bad auth!!!" });
         }
       } catch (error) {
         return done(error);
@@ -57,7 +57,6 @@ passport.use(
     }
   )
 );
-
 passport.use(
   "google",
   new GoogleStrategy(
@@ -69,32 +68,56 @@ passport.use(
     },
     async (req, accessToken, refreshToken, profile, done) => {
       try {
-        console.log(profile);
-        let gUser = await user.readByEmail(profile.id);
-        if (gUser) {
-          req.session.email = gUser.email;
-          req.session.role = gUser.role;
-          return done(null, gUser);
-        } else {
-          gUser = {
-            email: profile.id,
+        let user = await users.readByEmail(profile.id + "@gmail.com");
+        if (!user) {
+          user = {
+            email: profile.id + "@gmail.com",
             name: profile.name.givenName,
-            lastname: profile.name.familyName,
+            lastName: profile.name.familyName,
             photo: profile.coverPhoto,
             password: createHash(profile.id),
           };
-          gUser = await user.create(gUser);
-          req.session.email = profile.email;
-          req.session.role = user.role;
-          return done(null, gUser);
+          user = await users.create(user);
         }
+        req.session.email = user.email;
+        req.session.role = user.role;
+        return done(null, user);
       } catch (error) {
         return done(error);
       }
     }
   )
 );
-
+/* passport.use(
+  "github",
+  new GithubStrategy(
+    {
+      passReqToCallback: true,
+      clientID: GITHUB_ID,
+      clientSecret: GITHUB_CLIENT,
+      callbackURL: "http://localhost:8080/api/sessions/github/callback",
+    },
+    async (req, accessToken, refreshToken, profile, done) => {
+      try {
+        let user = await users.readByEmail(profile.id + "@github.com");
+        if (!user) {
+          user = {
+            email: profile.id + "@github.com",
+            name: profile.username,
+            photo: profile._json.avatar_url,
+            password: createHash(profile.id),
+          };
+          user = await users.create(user);
+        }
+        req.session.email = user.email;
+        req.session.role = user.role;
+        return done(null, user);
+      } catch (error) {
+        return done(error);
+      }
+    }
+  )
+); */
 passport.use(
   "jwt",
   new JwtStrategy(
@@ -106,11 +129,12 @@ passport.use(
     },
     async (payload, done) => {
       try {
-        const one = await user.readByEmail(payload.email);
-        if (one) {
-          one.password = null;
-          return done(null, one);
+        const user = await users.readByEmail(payload.email);
+        if (user) {
+          user.password = null;
+          return done(null, user);
         } else {
+          const info = { message: "Usuario no encontrado" };
           return done(null, false, info);
         }
       } catch (error) {

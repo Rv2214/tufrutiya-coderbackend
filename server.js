@@ -25,6 +25,7 @@ const PORT = env.PORT || 8080;
 const ready = () => {
   console.log("server ready on port: " + PORT);
   dbConnection();
+  //la conexion a la base de datos de mongo deberia config solo si la persistencia es en mongo
 };
 
 //server.listen(PORT, ready);

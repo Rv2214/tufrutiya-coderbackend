@@ -1,74 +1,101 @@
+import crypto from "crypto";
+import notFoundOne from "../../utils/notFoundOne.utils.js";
+
 class ProductManager {
-  static products = [];
-  static #perGain = 0.3;
-  static #totalGain = 0;
+  #products = [];
 
-  constructor(data) {}
+  constructor() {}
 
-  create(data) {
-    const product = {
-      id:
-        ProductManager.products.length === 0
-          ? 1
-          : ProductManager.products[ProductManager.products.length - 1].id + 1,
-      title: data.title,
-      description: data.description,
-      price: data.price || 10,
-      stock: data.stock || 50,
-      date: data.date || new Date(),
-    };
-    ProductManager.products.push(product);
-  }
-  read() {
-    return ProductManager.products;
-  }
-  readOne(id) {
-    const productId = ProductManager.products.find(
-      (each) => each.id === Number(id)
-    );
-    if (!productId) {
-      throw new Error(`El producto con ID ${id} es inexistente`);
+  async create(data) {
+    try {
+      const product = {
+        id: crypto.randomBytes(12).toString("hex"),
+        title: data.title,
+        photo: data.photo,
+        price: data.price,
+        stock: data.stock,
+      };
+      this.#products.push(product);
+      return product;
+    } catch (error) {
+      throw error;
     }
+  }
 
-    return productId;
+  read({ filter, options }) {
+    try {
+      if (this.#products.length === 0) {
+        const error = new Error("NOT FOUND!");
+        error.statusCode = 404;
+        throw error;
+      } else {
+        return this.#products;
+      }
+    } catch (error) {
+      throw error;
+    }
   }
-  soldProduct(quantity, productId) {
-    const product = this.readOne(productId);
-    product.stock = product.stock - quantity;
-    ProductManager.#totalGain =
-      ProductManager.#totalGain +
-      quantity * product.price * ProductManager.#perGain;
+
+  readOne(id) {
+    try {
+      const one = this.#products.find((each) => each.id === id);
+      if (!one) {
+        const error = new Error("NOT FOUND!");
+        error.statusCode = 404;
+        throw error;
+      } else {
+        return one;
+      }
+    } catch (error) {
+      throw error;
+    }
   }
-  getGain() {
-    return ProductManager.#totalGain;
+
+  async update(eid, data) {
+    try {
+      const one = this.readOne(eid);
+      notFoundOne(one);
+      for (let each in data) {
+        one[each] = data[each];
+      }
+      return one;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async destroy(id) {
     try {
-      const index = ProductManager.products.findIndex(
-        (product) => product.id === id
-      );
-
-      if (index === -1) {
-        throw new Error("No se encontró el producto con el ID proporcionado");
-      }
-
-      ProductManager.products.splice(index, 1);
-
-      await fs.promises.writeFile(
-        this.path,
-        JSON.stringify(ProductManager.products, null, 2)
-      );
-      return {
-        message: `Producto borrado correctamente`,
-        updateProducts: ProductManager.products,
-      };
+      const one = this.readOne(id);
+      notFoundOne(one);
+      this.#products = this.#products.filter((each) => each.id !== id);
+      return one;
     } catch (error) {
-      return error.message;
+      throw error;
     }
   }
 }
 
-const products = new ProductManager();
+// Datos de prueba para crear un nuevo producto
+/* const testData = {
+  title: "Manzana",
+  photo: "url_de_la_foto",
+  price: 1.99,
+  stock: 100,
+};
 
 
+const productManager = new ProductManager();
+
+
+productManager.create(testData)
+  .then((newProduct) => {
+    console.log("Producto creado exitosamente:", newProduct);
+  })
+  .catch((error) => {
+    console.error("Error al crear el producto:", error);
+  });*/
+
+const products = new ProductManager(); 
+
+export default products;

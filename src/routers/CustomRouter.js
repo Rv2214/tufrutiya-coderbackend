@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { user } from "../data/mongo/manager.mongo.js";
+import users from "../data/mongo/users.mongo.js";
 import jwt from "jsonwebtoken";
 
 export default class CustomRouter {
@@ -50,7 +50,7 @@ export default class CustomRouter {
             (role === 1 && arrayOfPolicies.includes("ADMIN")) ||
             (role === 2 && arrayOfPolicies.includes("PREM"))
           ) {
-            const one = await user.readByEmail(email);
+            const one = await users.readByEmail(email);
             req.one = one;
             return next();
           } else return res.error403();

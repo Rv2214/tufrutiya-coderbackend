@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { product } from "../../data/mongo/manager.mongo.js";
+import products from "../../data/mongo/products.mongo.js";
 /* import product from "../../data/fs/products.fs.js"; */
 
 const productRouter = Router();
@@ -26,7 +26,7 @@ productRouter.get("/", async (req, res, next) => {
     if (req.query.sort === "desc") {
       options.sort.title = "desc";
     }
-    const all = await product.read({ filter, options });
+    const all = await products.read({ filter, options });
     console.log();
     if (all.docs.length === 0) {
       return res.render("products", {

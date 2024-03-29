@@ -1,17 +1,21 @@
-import { user } from "../data/mongo/manager.mongo.js";
+import repository from "../repositories/users.repositories.js";
+import UserDTO from "../dto/user.dto.js";
 
 class UsersService {
   constructor() {
-    this.model = user;
+    this.repository = repository;
   }
-  create = async (data) => await this.model.create(data);
+  create = async (data) => {
+    data = new UserDTO(data);
+    const response = await this.repository.create(data);
+    return response;
+  };
   read = async ({ filter, options }) =>
-    await this.model.read({ filter, options });
-  stats = async (id) => await this.model.stats(id);
-  readOne = async (id) => await this.model.readOne(id);
-  readByEmail = async (id) => await this.model.readByEmail(email);
-  update = async (data) => await this.model.update(id, data);
-  destroy = async (id) => await this.model.destroy(id);
+    await this.repository.read({ filter, options });
+  readOne = async (id) => await this.repository.readOne(id);
+  readByEmail = async (email) => await this.repository.readByEmail(email);
+  update = async (id, data) => await this.repository.update(id, data);
+  destroy = async (id) => await this.repository.destroy(id);
 }
 
 const service = new UsersService();

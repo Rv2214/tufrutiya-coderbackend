@@ -1,32 +1,32 @@
 import { Router } from "express";
-import { order } from "../../data/mongo/manager.mongo.js";
-import isAuth from "../../middlewares/isAuth.js";
 
-const orderRouter = Router();
+import orders from "../../data/mongo/orders.mongo.js"
+import users from "../../data/mongo/users.mongo.js"
+import passCallBack from "../../middlewares/passCallBack.mid.js";
 
-orderRouter.get("/", async (req, res, next) => {
+const ordersRouter = Router();
+
+ordersRouter.get("/", passCallBack("jwt"), async (req, res, next) => {
   try {
-    const isAuthenticated = !!req.user;
-    // Determina si el usuario es un administrador (esto depende de cómo se estructura el token)
-    const isAdmin = req.user && req.user.role === "admin";
-    // Verifica si el usuario está autenticado y obtiene su correo electrónico
-    const userEmail = req.session.email;
-    console.log(userEmail);
-
-    // Lee las órdenes del usuario actual
-    const userOrders = await order.readByEmail(userEmail);
-    console.log(userOrders);
-
-    // Renderiza la vista de órdenes
-    return res.render("orders", {
-      orders: userOrders, // Envía las órdenes encontradas a la vista
-      userRole: req.session.role, // Puedes seguir pasando el rol del usuario si lo necesitas
-      isAuthenticated,
-      isAdmin,
-    });
+    const options = {
+      limit: req.query.limit || 20,
+      page: req.query.page || 1,
+      sort: { title: 1 },
+      lean: true,
+    };
+    const user = await users.readByEmail(req.user.email);
+    const filter = {
+      user_id: user._id,
+    };
+    const all = await orders.read({ filter, options });
+    console.log(all.docs[0].event_id);
+    return res.render("orders", { title: "MY CART", orders: all.docs });
   } catch (error) {
-    return next(error);
+    return res.render("orders", {
+      title: "MY CART",
+      message: "NO ORDERS YET!",
+    });
   }
 });
 
-export default orderRouter;
+export default ordersRouter;

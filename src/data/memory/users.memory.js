@@ -1,70 +1,81 @@
-class userManager {
-  static users = [];
+import crypto from "crypto";
 
-  constructor(data) {}
-
-  create(data) {
-    const user = {
-      id:
-        userManager.users.length === 0
-          ? 1
-          : userManager.users[userManager.users.length - 1].id + 1,
-      name: data.name,
-      email: data.email,
-      photo: "sin imagen",
-    };
-    userManager.users.push(user);
+class UsersManager {
+  static #users = [];
+  constructor() {}
+  async create(data) {
+    try {
+      if (!data.name || !data.email) {
+        const error = new Error("name & email are required");
+        error.statusCode = 400;
+        throw error;
+      }
+      const user = {
+        id: crypto.randomBytes(12).toString("hex"),
+        name: data.name,
+        email: data.email,
+        photo: data.photo || "https://i.postimg.cc/cCCFsWB0/userdefault.webp",
+      };
+      UsersManager.#users.push(user);
+      return user.id;
+    } catch (error) {
+      throw error;
+    }
   }
   read() {
-    return userManager.users;
+    try {
+      if (UsersManager.#users.length === 0) {
+        const error = new Error("NOT FOUND!");
+        error.statusCode = 404;
+        throw error;
+      } else {
+        return UsersManager.#users;
+      }
+    } catch (error) {
+      throw error;
+    }
   }
   readOne(id) {
-    const userId = userManager.users.find((each) => each.id === Number(id));
-    if (!userId) {
-      throw new Error(`El usuario con ID ${id} es inexistente`);
+    try {
+      const one = UsersManager.#users.find((each) => each.id === id);
+      if (!one) {
+        const error = new Error("NOT FOUND!");
+        error.statusCode = 404;
+        throw error;
+      } else {
+        return one;
+      }
+    } catch (error) {
+      throw error;
     }
-    return userId;
   }
-
+  async update(uid, data) {
+    try {
+      const one = UsersManager.#users.readOne(uid);
+      if (one) {
+        for (let each in data) {
+          one[each] = data[each];
+        }
+      }
+      return one;
+    } catch (error) {
+      throw error;
+    }
+  }
   async destroy(id) {
     try {
-      const index = userManager.users.findIndex((user) => user.id === id);
-
-      if (index === -1) {
-        throw new Error("No se encontró el usuario con el ID proporcionado");
+      const one = this.readOne(id);
+      if (one) {
+        UsersManager.#users = UsersManager.#users.filter(
+          (each) => each.id !== id
+        );
       }
-
-      userManager.users.splice(index, 1);
-
-      await fs.promises.writeFile(
-        this.path,
-        JSON.stringify(userManager.users, null, 2)
-      );
-      return {
-        message: `Usuario borrado correctamente`,
-        updatedUsers: userManager.users,
-      };
+      return one;
     } catch (error) {
-      return error.message;
+      throw error;
     }
   }
 }
 
-const users = new userManager();
-
-users.create({
-  name: "Ramon Diaz",
-  email: "ramondiaz@gmail.com",
-});
-users.create({
-  name: "Natalia Gomez",
-  email: "nataliagomez@hotmail.com",
-});
-users.create({
-  name: "Carlos Galarza",
-  email: "carlosgalarza@gmail.com",
-});
-users.create({
-  name: "Rosaura Marolio",
-  email: "rosamarolio@hotmail.com",
-});
+const users = new UsersManager();
+export default { users };

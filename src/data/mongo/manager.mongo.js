@@ -126,10 +126,14 @@ class MongoManager {
   }
 }
 
-const user = new MongoManager(User);
+
+//SEGUIR ACA
+
+
+/* const user = new MongoManager(User);
 const product = new MongoManager(Product);
 const order = new MongoManager(Order);
 const comments = new MongoManager(Comment);
 
-export { user, product, order, comments };
+export { user, product, order, comments }; */
 export default MongoManager;
