@@ -1,14 +1,14 @@
-import OrderDTO from "../dto/order.dto.js";
+import UserDTO from "../dto/user.dto.js";
 import dao from "../data/index.factory.js";
 
-const { orders } = dao;
+const { users } = dao;
 
-class OrdersRep {
+class UsersRep {
   constructor() {
-    this.model = orders;
+    this.model = users;
   }
   create = async (data) => {
-    data = new OrderDTO(data);
+    data = new UserDTO(data);
     const response = await this.model.create(data);
     return response;
   };
@@ -20,5 +20,5 @@ class OrdersRep {
   destroy = async (id) => await this.model.destroy(id);
 }
 
-const repository = new OrdersRep();
+const repository = new UsersRep();
 export default repository;

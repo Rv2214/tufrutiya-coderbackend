@@ -8,7 +8,9 @@ const schema = new Schema(
     lastName: { type: String },
     email: { type: String, required: true, unique: true, index: true },
     password: { type: String, required: true },
-    role: { type: Number, default: 0 },
+    role: { type: Number, default: 0/* , enum: [ "0", "1", "2" ]  */},
+    verified: { type: Boolean, default: false },
+    verifiedCode: { type: String, required: true },
     photo: {
       type: String,
       default: "https://i.postimg.cc/cCCFsWB0/userdefault.webp",

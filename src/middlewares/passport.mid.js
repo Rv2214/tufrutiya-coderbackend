@@ -4,12 +4,10 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth2";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import { createHash, verifyHash } from "../utils/hash.utils.js";
 import { createToken } from "../utils/token.utils.js";
+import repository from "../repositories/users.repositories.js";
 
-import UserDTO from '../dto/user.dto.js';
-import dao from "../data/index.factory.js";
-const { users } = dao
-/* import users from "../../src/data/mongo/users.mongo.js" */
-//import isValidPass from "./isValidPass.mid.js";
+  import UserDTO from '../dto/user.dto.js';
+
 const { GOOGLE_ID, GOOGLE_CLIENT, SECRET } = process.env;
 
 passport.use(
@@ -18,12 +16,12 @@ passport.use(
     { passReqToCallback: true, usernameField: "email" },
     async (req, email, password, done) => {
       try {
-        let one = await users.readByEmail(email);
+        let one = await repository.readByEmail(email);
         if (!one) {
           let data = req.body;
           data.password = createHash(password);
           data = new UserDTO(data)
-          let user = await users.create(data);
+          let user = await repository.create(data);
           return done(null, user);
         } else {
           return done(null, false, {
@@ -43,9 +41,9 @@ passport.use(
     { passReqToCallback: true, usernameField: "email" },
     async (req, email, password, done) => {
       try {
-        const user = await users.readByEmail(email);
-        if (user && verifyHash(password, user.password)) {
-          const token = createToken({ email, role: user.role });
+        const user = await repository.readByEmail(email);
+        if (user?.verified && verifyHash(password, user.password)) {
+          const token = createToken({ _id: user._id, role: user.role, email });
           req.token = token;
           return done(null, user);
         } else {
@@ -68,7 +66,7 @@ passport.use(
     },
     async (req, accessToken, refreshToken, profile, done) => {
       try {
-        let user = await users.readByEmail(profile.id + "@gmail.com");
+        let user = await repository.readByEmail(profile.id + "@gmail.com");
         if (!user) {
           user = {
             email: profile.id + "@gmail.com",
@@ -77,7 +75,7 @@ passport.use(
             photo: profile.coverPhoto,
             password: createHash(profile.id),
           };
-          user = await users.create(user);
+          user = await repository.create(user);
         }
         req.session.email = user.email;
         req.session.role = user.role;
@@ -118,6 +116,7 @@ passport.use(
     }
   )
 ); */
+//para extraer el tokken del objeto de requerimiento
 passport.use(
   "jwt",
   new JwtStrategy(
@@ -129,7 +128,8 @@ passport.use(
     },
     async (payload, done) => {
       try {
-        const user = await users.readByEmail(payload.email);
+        const user = await repository.readOne(payload._id);
+        console.log(user);
         if (user) {
           user.password = null;
           return done(null, user);

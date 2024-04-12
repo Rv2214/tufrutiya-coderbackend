@@ -1,4 +1,5 @@
 import argsUtils from "../utils/args.utils.js";
+import dbConnection from "../utils/db.js"
 console.log(argsUtils);
 
 const environment = argsUtils.env;
@@ -19,13 +20,18 @@ switch (environment) {
         dao = { products: productsFs, users: usersFs, orders: ordersFs}
         break;
     case "prod":
-        //vamos a usar MONGO es necesarios configuar la conexionn de mongo
-        console.log("MONGO CONNECTED");
-        const { default: productsMongo } = await import("./mongo/products.mongo.js")
-        dao= { products: productsMongo}
-        break; 
+    //vamos a usar MONGO
+    //aca es necesario configurar la conexión de mongo
+    dbConnection()
+    .then(() => console.log("MONGO CONNECTED"))
+    const { default: productsMongo } = await import("./mongo/products.mongo.js")
+    const { default: usersMongo } = await import("./mongo/users.mongo.js")
+    const { default: ordersMongo } = await import("./mongo/orders.mongo.js")
+    const { default: commentsMongo } = await import("./mongo/comments.mongo.js")
+    dao = { products: productsMongo, users: usersMongo, orders: ordersMongo, comments: commentsMongo }
+    break;
     default:
-        break;
+    break;
 }
 
 export default dao
