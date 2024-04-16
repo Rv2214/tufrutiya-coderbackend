@@ -12,7 +12,7 @@ class MongoManager {
   async create(data) {
     try {
       const one = await this.model.create(data);
-      return one._id;
+      return one;
     } catch (error) {
       throw error;
     }
@@ -82,8 +82,6 @@ class MongoManager {
   async readByEmail(email) {
     try {
       const one = await this.model.findOne({ email });
-      //notFoundOne(one);
-      //aqui no va la funcion
       return one;
     } catch (error) {
       throw error;

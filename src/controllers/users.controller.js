@@ -7,7 +7,7 @@ class UsersController {
   create = async (req, res, next) => {
     try {
       const data = req.body;
-      const response = await this.service.create(data);
+      const response = await service.create(data);
       return res.success201(response);
     } catch (error) {
       console.log(error);
@@ -29,7 +29,7 @@ class UsersController {
       if (req.query.sort === "desc") {
         options.sort.name = "desc";
       }
-      const all = await this.service.read({ filter, options });
+      const all = await service.read({ filter, options });
       return res.success200(all);
     } catch (error) {
       return next(error);
@@ -38,7 +38,7 @@ class UsersController {
   stats = async (req, res, next) => {
     try {
       const id = req.one._id;
-      const all = await this.service.stats(id);
+      const all = await service.stats(id);
       return res.success200(all);
     } catch (error) {
       return next(error);
@@ -47,7 +47,7 @@ class UsersController {
   readOne = async (req, res, next) => {
     try {
       const { uid } = req.params;
-      const one = await this.service.readOne(uid);
+      const one = await service.readOne(uid);
       return res.success200(one);
     } catch (error) {
       return next(error);
@@ -57,7 +57,7 @@ class UsersController {
     try {
       const { uid } = req.params;
       const data = req.body;
-      const response = await this.service.update(uid, data);
+      const response = await service.update(uid, data);
       return res.success200(response);
     } catch (error) {
       return next(error);
@@ -66,7 +66,7 @@ class UsersController {
   destroy = async (req, res, next) => {
     try {
       const { uid } = req.params;
-      const response = await this.service.destroy(uid);
+      const response = await service.destroy(uid);
       return res.success200(response);
     } catch (error) {
       return next(error);

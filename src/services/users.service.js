@@ -8,15 +8,15 @@ class UsersService {
   }
   create = async (data) => {
     data = new UserDTO(data);
-    const response = await this.repository.create(data);
+    const response = await repository.create(data);
     return response;
   };
   read = async ({ filter, options }) =>
-    await this.repository.read({ filter, options });
-  readOne = async (id) => await this.repository.readOne(id);
-  readByEmail = async (email) => await this.repository.readByEmail(email);
-  update = async (id, data) => await this.repository.update(id, data);
-  destroy = async (id) => await this.repository.destroy(id);
+    await repository.read({ filter, options });
+  readOne = async (id) => await repository.readOne(id);
+  readByEmail = async (email) => await repository.readByEmail(email);
+  update = async (id, data) => await repository.update(id, data);
+  destroy = async (id) => await repository.destroy(id);
   register = async (data) =>{
     try {
       await sendEmail(data)

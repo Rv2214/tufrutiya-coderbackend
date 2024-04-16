@@ -9,7 +9,7 @@ import {
   me,
   signout,
   badauth,
-  verifyAccount,
+  verifyAccount
 } from "../../controllers/sessions.controller.js";
 
 class SessionsRouter extends CustomRouter {
@@ -30,12 +30,12 @@ class SessionsRouter extends CustomRouter {
       }),
       google
     );
-    this.create(
+/*     this.create(
       "/github",
       ["PUBLIC"],
       passport.authenticate("github", { scope: ["email", "profile"] })
-    );
-    this.read(
+    ); */
+/*     this.read(
       "/github/callback",
       ["PUBLIC"],
       passport.authenticate("github", {
@@ -43,10 +43,10 @@ class SessionsRouter extends CustomRouter {
         failureRedirect: "/api/sessions/badauth",
       }),
       github
-    );
+    ); */
     this.create("/", ["USER", "ADMIN", "PREM"], me);
     this.create("/signout", ["USER", "ADMIN", "PREM"], passCallBack("jwt"), signout);
-    this.create("/", verifyAccount)
+    this.create("/", verifyAccount);
     this.read("/badauth", ["PUBLIC"], badauth);
   }
 }

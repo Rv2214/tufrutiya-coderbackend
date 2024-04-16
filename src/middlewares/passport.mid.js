@@ -17,9 +17,10 @@ passport.use(
     async (req, email, password, done) => {
       try {
         let one = await repository.readByEmail(email);
+        console.log(one);
         if (!one) {
           let data = req.body;
-          data.password = createHash(password);
+          /* data.password = createHash(password); */
           data = new UserDTO(data)
           let user = await repository.create(data);
           return done(null, user);
@@ -42,9 +43,12 @@ passport.use(
     async (req, email, password, done) => {
       try {
         const user = await repository.readByEmail(email);
-        if (user?.verified && verifyHash(password, user.password)) {
+        
+        if (user?.verified  &&  verifyHash(password, user.password)   ) {
           const token = createToken({ _id: user._id, role: user.role, email });
+          
           req.token = token;
+          console.log("token ", token);
           return done(null, user);
         } else {
           return done(null, false, { message: "Bad auth!!!" });

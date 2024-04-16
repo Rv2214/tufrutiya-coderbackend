@@ -5,8 +5,8 @@ class SessionsController {
     this.service = service;
   }
   register = async (req, res, next) => {
-    const { email, name } = req.body;
-    await this.service.register({ email, name });
+    const { email, name, verifiedCode } = req.user;
+    await service.register({ email, name, verifiedCode });
     try {
       return res.success201("Registered!");
     } catch (error) {
@@ -58,6 +58,7 @@ class SessionsController {
       return next(error);
     }
   };
+
   verifyAccount = async (req, res, next) => {
     try {
       const { email, verifiedCode } = req.body;
@@ -90,5 +91,6 @@ class SessionsController {
 
 export default SessionsController;
 const controller = new SessionsController();
-const { register, login, google, github, me, signout, badauth, verifyAccount } = controller;
+const { register, login, google, github, me, signout, badauth, verifyAccount } =
+  controller;
 export { register, login, google, github, me, signout, badauth, verifyAccount };
