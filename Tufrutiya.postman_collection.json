@@ -554,6 +554,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "verifiedAccount",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"rodrigo.e.vazquez@gmail.com\",\r\n    \"verifiedCode\": \"IVCteoTOKpW/atqI\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:{{PORT}}/api/sessions/",
+							"host": [
+								"localhost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"sessions",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

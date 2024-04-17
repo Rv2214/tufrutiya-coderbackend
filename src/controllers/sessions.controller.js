@@ -39,18 +39,18 @@ class SessionsController {
       return next(error);
     }
   };
-  me = async (req, res, next) => {
+/*   me = async (req, res, next) => {
     try {
       const user = {
-        email: req.user.email,
-        role: req.user.role,
-        photo: req.user.photo,
+        email: service.email,
+        role: service.role,
+        photo: service.photo,
       };
       return res.success200(user);
     } catch (error) {
       return next(error);
     }
-  };
+  }; */
   signout = async (req, res, next) => {
     try {
       return res.clearCookie("token").success200("Signed out!");
@@ -91,6 +91,6 @@ class SessionsController {
 
 export default SessionsController;
 const controller = new SessionsController();
-const { register, login, google, github, me, signout, badauth, verifyAccount } =
+const { register, login, google, github, /* me, */ signout, badauth, verifyAccount } =
   controller;
-export { register, login, google, github, me, signout, badauth, verifyAccount };
+export { register, login, google, github,/*  me, */ signout, badauth, verifyAccount };

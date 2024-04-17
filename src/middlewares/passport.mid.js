@@ -2,11 +2,12 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GoogleStrategy } from "passport-google-oauth2";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
-import { createHash, verifyHash } from "../utils/hash.utils.js";
+import { createHash } from "../utils/hash.utils.js";
+import { verifyHash } from "../utils/hash.utils.js";
 import { createToken } from "../utils/token.utils.js";
 import repository from "../repositories/users.repositories.js";
 
-  import UserDTO from '../dto/user.dto.js';
+import UserDTO from "../dto/user.dto.js";
 
 const { GOOGLE_ID, GOOGLE_CLIENT, SECRET } = process.env;
 
@@ -20,8 +21,8 @@ passport.use(
         console.log(one);
         if (!one) {
           let data = req.body;
-          /* data.password = createHash(password); */
-          data = new UserDTO(data)
+          /* data.password = createHash(password);  */
+          data = new UserDTO(data);
           let user = await repository.create(data);
           return done(null, user);
         } else {
@@ -43,10 +44,9 @@ passport.use(
     async (req, email, password, done) => {
       try {
         const user = await repository.readByEmail(email);
-        
-        if (user?.verified  &&  verifyHash(password, user.password)   ) {
+        /* const verify = verifyHash(password, user.password); */
+        if (user?.verified /* && verify */) {
           const token = createToken({ _id: user._id, role: user.role, email });
-          
           req.token = token;
           console.log("token ", token);
           return done(null, user);
