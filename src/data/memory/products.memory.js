@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import notFoundOne from "../../utils/notFoundOne.utils.js";
+/* import notFoundOne from "../../utils/notFoundOne.utils.js"; */
 
 class ProductManager {
   #products = [];
@@ -54,7 +54,7 @@ class ProductManager {
   async update(eid, data) {
     try {
       const one = this.readOne(eid);
-      notFoundOne(one);
+      /* notFoundOne(one); */
       for (let each in data) {
         one[each] = data[each];
       }
@@ -67,7 +67,7 @@ class ProductManager {
   async destroy(id) {
     try {
       const one = this.readOne(id);
-      notFoundOne(one);
+      /* notFoundOne(one); */
       this.#products = this.#products.filter((each) => each.id !== id);
       return one;
     } catch (error) {

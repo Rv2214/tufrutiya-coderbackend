@@ -1,3 +1,4 @@
+import "dotenv/config.js"
 import argsUtils from "../utils/args.utils.js";
 import dbConnection from "../utils/db.js"
 console.log(argsUtils);
@@ -20,8 +21,6 @@ switch (environment) {
         dao = { products: productsFs, users: usersFs, orders: ordersFs}
         break;
     case "prod":
-    //vamos a usar MONGO
-    //aca es necesario configurar la conexión de mongo
     dbConnection()
     .then(() => console.log("MONGO CONNECTED"))
     const { default: productsMongo } = await import("./mongo/products.mongo.js")

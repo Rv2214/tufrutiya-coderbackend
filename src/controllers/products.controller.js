@@ -1,4 +1,6 @@
 import service from "../services/products.service.js";
+import CustomError from "../utils/errors/CustomError.utils.js";
+import errors from "../utils/errors/errors.js";
 
 class ProductsController {
   constructor() {
@@ -8,7 +10,6 @@ class ProductsController {
     try {
       const data = req.body;
       const response = await this.service.create(data);
-      //return res.json({ statusCode: 201, response });
       return res.success201(response);
     } catch (error) {
       return next(error);
@@ -31,7 +32,12 @@ class ProductsController {
         options.sort.title = "desc";
       }
       const all = await this.service.read({ filter, options });
-      return res.success200(all);
+      if(all.docs.length > 0){
+        return res.success200(all);
+      }else{
+        CustomError.new(errors.notFound)
+      }
+      
     } catch (error) {
       return next(error);
     }
@@ -40,15 +46,11 @@ class ProductsController {
   readOne = async (req, res, next) => {
     try {
       const { pid } = req.params;
-
       const one = await this.service.readOne(pid);
-      if (typeof one === "string") {
-        return res.json({
-          statusCode: 404,
-          message: one,
-        });
-      } else {
+      if (one) {
         return res.success200(one);
+      } else {
+        CustomError.new(errors.notFound)
       }
     } catch (error) {
       return next(error);
@@ -60,7 +62,11 @@ class ProductsController {
       const { pid } = req.params;
       const data = req.body;
       const one = await this.service.update(pid, data);
-      return res.success200(one);
+      if (one) {
+        return res.success200(one);
+      } else {
+        CustomError.new(errors.notFound)
+      }
     } catch (error) {
       return next(error);
     }
@@ -71,14 +77,10 @@ class ProductsController {
       const { pid } = req.params;
 
       const one = await this.service.destroy(pid);
-      if (!one) {
-        return res.json({
-          statusCode: 404,
-          message: "Product not found",
-        });
-      } else {
-        console.log(one);
+      if (one) {
         return res.success200(one);
+      } else {
+        CustomError.new(errors.notFound)
       }
     } catch (error) {
       return next(error);

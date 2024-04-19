@@ -1,13 +1,14 @@
-import { genSaltSync, hashSync, compareSync } from "bcrypt";
+import { hashSync, genSaltSync, compare, compareSync } from "bcrypt";
 
-const createHash = (password) => hashSync(password, genSaltSync(10));
+function createHash(password) {
+  const salt = genSaltSync(10);
+  const hashPasword = hashSync(password, salt);
+  return hashPasword;
+}
 
-const verifyHash = (req, db) => compareSync(req, db);
+function verifyHash(reqPass, dbPass) {
+  const isValid = compareSync(reqPass, dbPass);
+  return isValid;
+}
 
 export { createHash, verifyHash };
-
-
-/* const verifyHash = (req, db) => {
-    const verify = compareSync(req, db)
-    return verify
-} */

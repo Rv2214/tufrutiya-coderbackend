@@ -6,6 +6,7 @@ import { createHash } from "../utils/hash.utils.js";
 import { verifyHash } from "../utils/hash.utils.js";
 import { createToken } from "../utils/token.utils.js";
 import repository from "../repositories/users.repositories.js";
+import errors from "../utils/errors/errors.js";
 
 import UserDTO from "../dto/user.dto.js";
 
@@ -26,10 +27,7 @@ passport.use(
           let user = await repository.create(data);
           return done(null, user);
         } else {
-          return done(null, false, {
-            message: "User already exists",
-            statusCode: 400,
-          });
+          return done(null, false, errors.alreadyExist)
         }
       } catch (error) {
         return done(error);
@@ -44,14 +42,18 @@ passport.use(
     async (req, email, password, done) => {
       try {
         const user = await repository.readByEmail(email);
-        /* const verify = verifyHash(password, user.password); */
-        if (user?.verified /* && verify */) {
+        console.log(user);
+        const verify = verifyHash(password, user.password);
+        console.log(user.password);
+        console.log(password); 
+        console.log(verify);
+        if (user?.verified && verify ) {
           const token = createToken({ _id: user._id, role: user.role, email });
           req.token = token;
           console.log("token ", token);
           return done(null, user);
         } else {
-          return done(null, false, { message: "Bad auth!!!" });
+          return done(null, false, errors.badauth);
         }
       } catch (error) {
         return done(error);

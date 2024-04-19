@@ -12,6 +12,7 @@ import expressSesssion from "express-session";
 import cors from "cors";
 import MongoStore from "connect-mongo";
 import args from "./src/utils/args.utils.js";
+import compression from "express-compression";
 
 import IndexRouter from "./src/routers/index.router.js";
 import pathHandler from "./src/middlewares/pathHandler.mid.js";
@@ -71,6 +72,7 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static(__dirname + "/public"));
 server.use(morgan("dev"));
+server.use(compression({ brotli: { enabled: true, zlib: {} } }));
 
 //endpoints
 const router = new IndexRouter();

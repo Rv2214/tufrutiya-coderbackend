@@ -2,7 +2,7 @@ import User from "./models/user.model.js";
 import Product from "./models/product.model.js";
 import Order from "./models/order.model.js";
 import Comment from "./models/comment.model.js";
-import notFoundOne from "../../utils/notFoundOne.utils.js";
+/* import notFoundOne from "../../utils/notFoundOne.utils.js"; */
 import { Types } from "mongoose";
 
 class MongoManager {
@@ -72,7 +72,7 @@ class MongoManager {
   async readOne(id) {
     try {
       const one = await this.model.findById(id);
-      notFoundOne(one);
+      /* notFoundOne(one); */
       return one;
     } catch (error) {
       throw error;
@@ -92,7 +92,7 @@ class MongoManager {
     try {
       const opt = { new: true };
       const one = await this.model.findByIdAndUpdate(id, data, opt);
-      notFoundOne(one);
+      /* notFoundOne(one); */
       return one;
     } catch (error) {
       throw error;
@@ -102,7 +102,7 @@ class MongoManager {
   async destroy(id) {
     try {
       const one = await this.model.findByIdAndDelete(id);
-      notFoundOne(one);
+      /* notFoundOne(one); */
       return one;
     } catch (error) {
       throw error;
@@ -112,7 +112,6 @@ class MongoManager {
   async stats({ filter }) {
     try {
       let stats = await this.model.find(filter).explain("executionStats");
-
       stats = {
         quantity: stats.executionStats.nReturned,
         time: stats.executionStats.executionTimeMillis,
@@ -124,14 +123,4 @@ class MongoManager {
   }
 }
 
-
-//SEGUIR ACA
-
-
-/* const user = new MongoManager(User);
-const product = new MongoManager(Product);
-const order = new MongoManager(Order);
-const comments = new MongoManager(Comment);
-
-export { user, product, order, comments }; */
 export default MongoManager;

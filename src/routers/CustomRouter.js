@@ -1,6 +1,7 @@
 import { Router } from "express";
 import users from "../data/mongo/users.mongo.js";
 import jwt from "jsonwebtoken";
+import errors from "../utils/errors/errors.js";
 
 export default class CustomRouter {
   constructor() {
@@ -28,10 +29,10 @@ export default class CustomRouter {
       res.json({ statusCode: 200, response: payload });
     res.success201 = (payload) =>
       res.json({ statusCode: 201, response: payload });
-    res.error400 = (message) => res.json({ statusCode: 400, message });
-    res.error401 = () => res.json({ statusCode: 401, message: "Bad auth!" });
-    res.error403 = () => res.json({ statusCode: 403, message: "Forbidden!" });
-    res.error404 = () => res.json({ statusCode: 404, message: "Not found!" });
+    res.error400 = (message) => res.json(errors.message(message));
+    res.error401 = () => res.json(errors.badauth);
+    res.error403 = () => res.json(errors.forbidden);
+    res.error404 = () => res.json(errors.notFound);
     return next();
   };
 
@@ -39,7 +40,7 @@ export default class CustomRouter {
     try {
       if (arrayOfPolicies.includes("PUBLIC")) return next();
       let token = req.cookies["token"];
-      if (!token) return res.error401();
+      if (!token) return res.json(errors.badauth);
       else {
         const data = jwt.verify(token, process.env.SECRET);
         if (!data) return res.error400("Bad auth by token!");

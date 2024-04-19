@@ -1,5 +1,5 @@
 import fs from "fs";
-import notFoundOne from "../../utils/notFoundOne.utils.js";
+/* import notFoundOne from "../../utils/notFoundOne.utils.js"; */
 
 class productsManager {
   init() {
@@ -63,7 +63,7 @@ class productsManager {
   async update(eid, data) {
     try {
       const one = this.readOne(eid);
-      notFoundOne(one);
+     /*  notFoundOne(one); */
       for (let each in data) {
         one[each] = data[each];
       }
@@ -77,7 +77,7 @@ class productsManager {
   async destroy(id) {
     try {
       const one = this.readOne(id);
-      notFoundOne(one);
+     /*  notFoundOne(one); */
       this.products = this.products.filter((each) => each._id !== id);
       const jsonData = JSON.stringify(this.products, null, 2);
       await fs.promises.writeFile(this.path, jsonData);

@@ -6,8 +6,7 @@ import ordersRouter from "./orders.router.js";
 import sessionsRouter from "./sessions.router.api.js";
 import commentsRouter from "./comments.router.js";
 import passCallBackMid from "../../middlewares/passCallBack.mid.js";
-/* import { Router } from "express"; */
-/* import passport from "../../middlewares/passport.mid.js"; */
+
 
 const product = new ProductsRouter();
 export default class ApiRouter extends CustomRouter {
