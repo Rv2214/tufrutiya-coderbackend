@@ -13,7 +13,6 @@ export default class ViewsRouter extends CustomRouter {
     this.router.use("/products", isAuth, productRouter);
     this.router.use("/sessions", sessionsRouter);
     this.router.use("/orders", isAuth, orderRouter);
-    //arreglar esto, sin isAuth se renderizan todos los botones del navbar, con isAuth no se ve nada sin logear...
     this.read("/", ["PUBLIC"], async (req, res, next) => {
       try {
         const isAuthenticated = !!req.user;

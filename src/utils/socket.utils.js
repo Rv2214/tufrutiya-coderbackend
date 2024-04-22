@@ -3,7 +3,7 @@ import product from "../data/fs/products.fs.js";
 import propsProductsUtils from "./propsProducts.utils.js";
 
 export default (socket) => {
-  console.log(socket.id);
+  /* console.log(socket.id); */
   socket.emit("welcome", "Welcome to my ecommerce");
   socket.emit("products", product.read());
   socket.on("new product", async (data) => {
@@ -13,7 +13,7 @@ export default (socket) => {
       socketServer.emit("product created", "Successfully created");
       socketServer.emit("products", product.read());
     } catch (error) {
-      console.log(error);
+    /*   console.log(error); */
     /* socket.emit("alert", "Error creating product. Please check the input data."); */
     }
   });

@@ -11,7 +11,6 @@ document.querySelector("#newProduct").addEventListener('click', (event)=>{
     photo && (data.photo = photo);
     price && (data.price = price);
     stock && (data.stock = stock);
-    console.log(data);
     socket.emit("new product", data);
     socket.on("product created", (message) => alert(message));
 })

@@ -10,7 +10,7 @@ logoutButton.addEventListener("click", async () => {
     let response = await fetch("/api/sessions/signout", opts) 
     response = await response.json();
     if(response.statusCode === 200) {
-      alert(response.message);
+      alert("Se ha cerrado correctamente la sesion");
       localStorage.removeItem("token");
       location.replace("/");
     }else{

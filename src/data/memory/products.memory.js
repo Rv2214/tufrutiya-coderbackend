@@ -76,25 +76,6 @@ class ProductManager {
   }
 }
 
-// Datos de prueba para crear un nuevo producto
-/* const testData = {
-  title: "Manzana",
-  photo: "url_de_la_foto",
-  price: 1.99,
-  stock: 100,
-};
-
-
-const productManager = new ProductManager();
-
-
-productManager.create(testData)
-  .then((newProduct) => {
-    console.log("Producto creado exitosamente:", newProduct);
-  })
-  .catch((error) => {
-    console.error("Error al crear el producto:", error);
-  });*/
 
 const products = new ProductManager(); 
 

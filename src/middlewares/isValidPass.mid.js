@@ -5,7 +5,6 @@ async function isValidPass(req, res, next) {
   try {
     const { email, password } = req.body;
     const one = await user.readByEmail(email);
-    console.log(email);
     const dbPassword = one.password;
     isValidPassUtils(password, dbPassword);
     return next();

@@ -14,19 +14,20 @@ import MongoStore from "connect-mongo";
 import args from "./src/utils/args.utils.js";
 import compression from "express-compression";
 
+
 import IndexRouter from "./src/routers/index.router.js";
 import pathHandler from "./src/middlewares/pathHandler.mid.js";
 import errorHandler from "./src/middlewares/errorHandler.mid.js";
 import __dirname from "./utils.js";
 import Handlebars from "handlebars";
+import wintson from "./src/middlewares/winston.js";
+import winston from "./src/utils/logger/winston.utils.js"
 
 //server
 const server = express();
 const PORT = env.PORT || 8080;
 const ready = () => {
-  console.log("server ready on port: " + PORT);
-  dbConnection();
-  //la conexion a la base de datos de mongo deberia config solo si la persistencia es en mongo
+  winston.INFO("server ready on port: " + PORT);
 };
 
 //server.listen(PORT, ready);
@@ -72,6 +73,7 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static(__dirname + "/public"));
 server.use(morgan("dev"));
+server.use(wintson);
 server.use(compression({ brotli: { enabled: true, zlib: {} } }));
 
 //endpoints
@@ -82,4 +84,4 @@ server.use(pathHandler);
 
 export { socketServer };
 
-console.log(args);
+winston.INFO("args: ", args);

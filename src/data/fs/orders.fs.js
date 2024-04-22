@@ -1,6 +1,7 @@
 import fs from "fs";
 import crypto from "crypto";
 import product from "../../data/fs/products.fs.js";
+import winston from "../../utils/logger/winston.utils.js";
 
 class OrdersManager {
   static #orders = [];
@@ -24,7 +25,8 @@ class OrdersManager {
         }
       }
     } catch (error) {
-      console.log("Error initializing OrdersManager", error.message);
+      winston.ERROR("Error initializing OrdersManager", error.message);
+      return error.message
     }
   }
 
@@ -57,8 +59,7 @@ class OrdersManager {
         JSON.stringify(OrdersManager.#orders, null, 2)
       );
 
-      console.log("Order created:", order.id);
-      return order.id;
+      return order;
     } catch (error) {
       return error.message;
     }

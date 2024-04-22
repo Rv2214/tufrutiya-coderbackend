@@ -14,6 +14,5 @@ socket.on("products", (data) => {
 </div>`
     )
     .join("");
-  console.log(data);
   document.querySelector("#products").innerHTML = data;
 });

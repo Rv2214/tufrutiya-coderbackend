@@ -15,7 +15,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:{{PORT}}/api/products?=",
+							"raw": "localhost:{{PORT}}/api/products?title=a",
 							"host": [
 								"localhost"
 							],
@@ -26,8 +26,8 @@
 							],
 							"query": [
 								{
-									"key": null,
-									"value": ""
+									"key": "title",
+									"value": "a"
 								}
 							]
 						}
@@ -110,7 +110,7 @@
 							"variable": [
 								{
 									"key": "pid",
-									"value": "65c29afd8ba203a565ca5483"
+									"value": "6626a3945f116394988d55ac"
 								}
 							]
 						}
@@ -153,7 +153,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"peras\",\r\n    \"price\": 1000,\r\n    \"stock\": 500\r\n}",
+							"raw": "{\r\n    \"title\": \"banana\",\r\n    \"price\": 1000,\r\n    \"stock\": 500\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -174,18 +174,10 @@
 							"variable": [
 								{
 									"key": "uid",
-									"value": "65bbf659ac5d196be3409a7a"
+									"value": "65bbf5fbac5d196be3409a70"
 								}
 							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "New Request",
-					"request": {
-						"method": "GET",
-						"header": []
 					},
 					"response": []
 				}
@@ -201,7 +193,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"rossa\",\r\n    \"email\": \"rosa@gmail.com\",\r\n    \"password\": \"hola1234\",\r\n    \"role\": \"1\"\r\n}",
+							"raw": "{\r\n    \"name\": \"rodrigo\",\r\n    \"email\": \"rodrigo.e.vazquez@gmail.com\",\r\n    \"password\": \"hola1234\",\r\n    \"role\": \"2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -253,7 +245,7 @@
 							"variable": [
 								{
 									"key": "uid",
-									"value": "65bbdd079731d4b931f4722a"
+									"value": "66263097b06a94e2e7bc5b6d"
 								}
 							]
 						}
@@ -278,7 +270,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/users/?email=",
+							"raw": "localhost:8080/api/users/?email=rodrigo.e.vazquez@gmail.com",
 							"host": [
 								"localhost"
 							],
@@ -291,7 +283,7 @@
 							"query": [
 								{
 									"key": "email",
-									"value": ""
+									"value": "rodrigo.e.vazquez@gmail.com"
 								}
 							]
 						}
@@ -317,7 +309,7 @@
 							"variable": [
 								{
 									"key": "uid",
-									"value": ""
+									"value": "66263097b06a94e2e7bc5b6d"
 								}
 							]
 						}
@@ -336,7 +328,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"user_id\": \"65c417730b35a09f4e897263\",\r\n  \"product_id\": \"65bbf63cac5d196be3409a76\",\r\n  \"quantity\": 10\r\n}\r\n    ",
+							"raw": "{\r\n  \"user_id\": \"65d6a4fe90f88898755566cb\",\r\n  \"product_id\": \"65bbf5fbac5d196be3409a70\",\r\n  \"email\": \"pedro@coder.com\",\r\n  \"quantity\": 20\r\n}\r\n    ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -377,7 +369,7 @@
 							"variable": [
 								{
 									"key": "uid",
-									"value": "65bbdd079731d4b931f4722a"
+									"value": "65d6a4fe90f88898755566cb"
 								}
 							]
 						}
@@ -484,7 +476,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"ruben@coder.com\",\r\n    \"password\": \"hola1234\"\r\n}",
+							"raw": "{\r\n    \"email\": \"rodrigo.e.vazquez@gmail.com\",\r\n    \"password\": \"hola1234\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -533,7 +525,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"rodrigo\",\r\n    \"email\": \"rodrigo.e.vazquez@gmail.com\",\r\n    \"password\": \"hola1234\",\r\n    \"role\": \"1\"\r\n}",
+							"raw": "{\r\n    \"name\": \"rodrigo\",\r\n    \"email\": \"rodrigo.e.vazquez@gmail.com\",\r\n    \"password\": \"hola1234\",\r\n    \"role\": \"2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -562,7 +554,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"rodrigo.e.vazquez@gmail.com\",\r\n    \"verifiedCode\": \"IVCteoTOKpW/atqI\"\r\n\r\n}",
+							"raw": "{\r\n    \"email\": \"rodrigo.e.vazquez@gmail.com\",\r\n    \"verifiedCode\": \"v+exGrl4kkrjPXlQ\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -596,7 +588,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"text\": \"primer comentario, no es banana sino bananas\",\r\n    \"product_id\": \"65bbf5fbac5d196be3409a70\"\r\n}",
+							"raw": "{\r\n    \"text\": \"tercer comentario, test\",\r\n    \"product_id\": \"662638a3b06a94e2e7bc5b75\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

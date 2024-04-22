@@ -7,7 +7,7 @@ import { verifyHash } from "../utils/hash.utils.js";
 import { createToken } from "../utils/token.utils.js";
 import repository from "../repositories/users.repositories.js";
 import errors from "../utils/errors/errors.js";
-
+import winston from "../utils/logger/winston.utils.js";
 import UserDTO from "../dto/user.dto.js";
 
 const { GOOGLE_ID, GOOGLE_CLIENT, SECRET } = process.env;
@@ -19,11 +19,11 @@ passport.use(
     async (req, email, password, done) => {
       try {
         let one = await repository.readByEmail(email);
-        console.log(one);
+        /* winston.INFO("user: ", one); */
         if (!one) {
           let data = req.body;
           /* data.password = createHash(password);  */
-          data = new UserDTO(data);
+          /* data = new UserDTO(data); */
           let user = await repository.create(data);
           return done(null, user);
         } else {
@@ -42,15 +42,15 @@ passport.use(
     async (req, email, password, done) => {
       try {
         const user = await repository.readByEmail(email);
-        console.log(user);
+/*         winston.INFO("user ",user); */
         const verify = verifyHash(password, user.password);
-        console.log(user.password);
-        console.log(password); 
-        console.log(verify);
+/*         winston.INFO(user.password);
+        winston.INFO(password); 
+        winston.INFO(verify); */
         if (user?.verified && verify ) {
           const token = createToken({ _id: user._id, role: user.role, email });
           req.token = token;
-          console.log("token ", token);
+          /* winston.INFO("token ", token); */
           return done(null, user);
         } else {
           return done(null, false, errors.badauth);
@@ -135,7 +135,6 @@ passport.use(
     async (payload, done) => {
       try {
         const user = await repository.readOne(payload._id);
-        console.log(user);
         if (user) {
           user.password = null;
           return done(null, user);

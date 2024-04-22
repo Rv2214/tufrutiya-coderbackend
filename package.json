@@ -22,7 +22,8 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "session-file-store": "^1.5.0",
-    "socket.io": "^4.7.4"
+    "socket.io": "^4.7.4",
+    "winston": "^3.13.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
@@ -31,7 +32,11 @@
   "scripts": {
     "start": "node ./server.js",
     "dev": "nodemon ./server.js --env dev",
-    "test": "nodemon ./server.js --env test"
+    "test": "nodemon ./server.js --env test",
+    "simplex": "artillery quick --count 40 --num 50 'http://localhost:8080/simplex' -o ./test/quick/simplex.json",
+    "complex": "artillery quick --count 40 --num 50 'http://localhost:8080/complex' -o ./test/quick/complex.json",
+    "performance": "artillery run ./test/flow/flow.yaml --output ./test/flow/flow.json",
+    "report": "artillery report ./test/flow/flow.json"
   },
   "name": "04_desafio4",
   "version": "1.0.0",

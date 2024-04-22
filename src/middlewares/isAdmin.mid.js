@@ -2,7 +2,6 @@ import { verifytoken } from "../utils/token.utils.js";
 
 export default (req, res, next) => {
   try {
-/*     console.log(req.user); */
 /*     const token = req.cookies.token;
     const userData = verifytoken(token); */
     const { role }  = req.user;

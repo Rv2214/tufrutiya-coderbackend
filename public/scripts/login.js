@@ -1,3 +1,4 @@
+/* import winston from "../../src/utils/logger/winston.utils.js"; */
 
 //selecciono el valor del front
 const selector = document.querySelector("#login");
@@ -17,10 +18,15 @@ selector.addEventListener("click", async () => {
     //construyo la variable para la respuesta que espera un fetch con un url y las opciones
     let response = await fetch("/api/sessions/login", opts);
     response = await response.json();
-    console.log(response);
-    //utilizo los metodos correspondientes para cerrar la sesion y volver la pagina de inicio 
+   /*  console.log("response ", response); */
+    /* winston.INFO("res: ", response) */
+    //utilizo los metodos correspondientes para cerrar la sesion y volver la pagina de inicio
+    console.log(response) 
     if (response.statusCode === 200) {
-      alert(response.message);
+      /* alert(JSON.stringify(response)); */
+      alert("Usuario logeado correctamente");
+
+
       location.replace("/products");
       //localStorage.setItem("token", response.token);
     } else {

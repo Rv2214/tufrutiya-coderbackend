@@ -15,9 +15,9 @@ class UsersRouter extends CustomRouter {
     this.read("/", ["PUBLIC"], read);
     this.read("/:uid", ["PUBLIC"], readOne);
     this.read("/", ["PUBLIC"], readByEmail)
-    this.read("/stats", ["USER", "PREM"], stats);
-    this.update("/:uid", ["USER", "PREM"], update);
-    this.destroy("/:uid", ["USER", "PREM"], destroy);
+    this.read("/stats", ["USER", "PREM", "ADMIN"], stats);
+    this.update("/:uid", ["USER", "PREM", "ADMIN"], update);
+    this.destroy("/:uid", ["USER", "PREM", "ADMIN"], destroy);
   }
 }
 

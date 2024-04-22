@@ -19,7 +19,7 @@ class ProductsController {
   read = async (req, res, next) => {
     try {
       const options = {
-        limit: req.query.limit || 6,
+        limit: req.query.limit || 10,
         page: req.query.page || 1,
         sort: { title: 1 },
         lean: true,

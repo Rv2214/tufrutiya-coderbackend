@@ -27,7 +27,6 @@ productRouter.get("/", async (req, res, next) => {
       options.sort.title = "desc";
     }
     const all = await products.read({ filter, options });
-    console.log();
     if (all.docs.length === 0) {
       return res.render("products", {
         products: [],

@@ -1,11 +1,12 @@
 import { connect } from "mongoose";
+import winston from "./logger/winston.utils.js";
 
 const dbConnection = async () => {
   try {
     await connect(process.env.DB_LINK);
-    console.log("database connected");
+    winston.INFO("Database connected");
   } catch (error) {
-    console.log(error);
+    winston.ERROR(error);
   }
 };
 

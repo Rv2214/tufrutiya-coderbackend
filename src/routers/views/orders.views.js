@@ -19,7 +19,6 @@ ordersRouter.get("/", passCallBack("jwt"), async (req, res, next) => {
       user_id: user._id,
     };
     const all = await orders.read({ filter, options });
-    console.log(all.docs[0].event_id);
     return res.render("orders", { title: "MY CART", orders: all.docs });
   } catch (error) {
     return res.render("orders", {

@@ -1,8 +1,5 @@
-import User from "./models/user.model.js";
-import Product from "./models/product.model.js";
-import Order from "./models/order.model.js";
-import Comment from "./models/comment.model.js";
-/* import notFoundOne from "../../utils/notFoundOne.utils.js"; */
+import winston from "../../utils/logger/winston.utils.js";
+
 import { Types } from "mongoose";
 
 class MongoManager {
@@ -21,7 +18,7 @@ class MongoManager {
   async read({ filter, options }) {
     try {
       const all = await this.model.paginate(filter, options);
-      console.log(all.docs);
+      /* winston.INFO(all.docs); */
       if (all.totalPages === 0) {
         const error = new Error("There aren't documents");
         error.statusCode = 404;
