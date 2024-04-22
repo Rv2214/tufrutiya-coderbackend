@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0px;
+  box-sizing: content-box;
+  
+}
+
+body {
+  background-image: url("./media/bg-index.jpg");
+  background-size: auto;
+    background-size: cover;
+  /* background-color: wheat; */
+}
+
+
+main {
+  color: palevioletred;
+}
+
+.bodyform {
+  background-image: url("https: //i.postimg.cc/zfSX8gDh/bgindex.jpg");
+    background-size: cover;
+  
+}
+
+
+
+.image-container {
+  width: 100%;
+  overflow: hidden;
+  /* Esto es importante para que la imagen no se desborde del contenedor */
+}
+
+
+
+  
+

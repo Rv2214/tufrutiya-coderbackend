@@ -1,0 +1,47 @@
+<main class="p-2 mx-auto">
+  <h1 class="p-2 m-auto d-flex flex-wrap justify-content-evenly">Fruteria -
+    proyecto backend coder</h1>
+  <div class="image-container p-2 d-flex flex-wrap justify-content-evenly imghome-conteiner">
+    <img
+      src="https://i.postimg.cc/pdfHBPBb/tufrutihome.png"
+      class="img-fluid img-index"
+      alt="fruteria"
+    />
+  </div>
+  {{#if isAuthenticated}}
+  <p class="p-4 text-justify">
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat nisi rerum
+    quam placeat sed, optio amet natus fuga quisquam veniam temporibus velit
+    dolor veritatis doloribus eos voluptas officiis, inventore possimus. Eaque
+    est quia exercitationem suscipit enim fuga atque quae, tenetur inventore
+    officiis sit accusantium aspernatur maiores in neque tempora hic expedita
+    iure modi eius deserunt quis. Blanditiis inventore porro ab? Commodi
+    doloremque dolorum velit amet consequuntur sequi enim voluptas dolor veniam
+    molestias exercitationem ducimus quos, quibusdam, temporibus quo accusantium
+    eius illum reiciendis iure! Necessitatibus cupiditate error expedita vel,
+    quaerat dolorem? Iusto nemo voluptas accusamus aspernatur qui saepe veniam
+    provident, omnis quos repellat fuga quas quisquam ipsum aperiam corporis?
+    Ipsum, rem quibusdam exercitationem molestiae ad tenetur est quos iste.
+    Consequatur, ea. Harum, dolor quis? In vel facilis voluptates, cupiditate
+    reiciendis ratione accusantium hic at esse nemo quia est minus non nihil
+    debitis expedita sed eos illum consequuntur. Alias harum a vero?
+  </p>
+  {{/if}}
+  <div class="d-flex justify-content-between align-items-center m-4 my-4">
+    <a href="?page={{prev}}" class="btn btn-primary">&laquo; Anterior</a>
+    <div class="d-flex flex-wrap justify-content-evenly">
+      {{#each products}}
+      <div class="card mb-4 m-8" style="width: 20rem; height: 400px;">
+        <img src="{{photo}}" class="card-img-top h-50" alt="frutas" />
+        <div class="card-body">
+          <h5 class="card-title">{{title}}</h5>
+          <p>Price: {{price}}</p>
+          <p>Stock: {{stock}}</p>
+          <a href="#" class="btn btn-primary">Detalles</a>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    <a href="?page={{next}}" class="btn btn-primary">Siguiente &raquo;</a>
+  </div>
+</main>
