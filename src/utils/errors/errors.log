@@ -295,3 +295,119 @@
 [33mWARN[39m: GET /favicon.ico not found path
 [33mWARN[39m: Not found docs!
 [33mWARN[39m: Not found docs!
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /sessions/styles.css not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: bad auth token
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /sessions/styles.css not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /sessions/styles.css not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /sessions/styles.css not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /sessions/styles.css not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /sessions/styles.css not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /products/styles.css not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: GET /favicon.ico not found path
+[33mWARN[39m: Not found docs!
+[31mERROR[39m: orders validation failed: product_id: Path `product_id` is required., email: Path `email` is required.
+[31mERROR[39m: orders validation failed: product_id: Path `product_id` is required., email: Path `email` is required.
+[31mERROR[39m: orders validation failed: product_id: Path `product_id` is required., email: Path `email` is required.
+[31mERROR[39m: orders validation failed: product_id: Path `product_id` is required., email: Path `email` is required.
+[31mERROR[39m: orders validation failed: product_id: Path `product_id` is required., email: Path `email` is required.
+[31mERROR[39m: orders validation failed: product_id: Path `product_id` is required., email: Path `email` is required.
+[31mERROR[39m: orders validation failed: product_id: Path `product_id` is required., email: Path `email` is required.
+[31mERROR[39m: orders validation failed: product_id: Path `product_id` is required., email: Path `email` is required.
+[31mERROR[39m: orders validation failed: product_id: Path `product_id` is required., email: Path `email` is required.
+[31mERROR[39m: products validation failed: user_id: Path `user_id` is required.
+[31mERROR[39m: products validation failed: user_id: Path `user_id` is required.
+[31mERROR[39m: products validation failed: user_id: Path `user_id` is required.
+[31mERROR[39m: products validation failed: user_id: Path `user_id` is required.
+[33mWARN[39m: GET /favicon.ico not found path
+[31mERROR[39m: Cannot read properties of undefined (reading 'id')
+[31mERROR[39m: Cannot read properties of undefined (reading 'id')
+[31mERROR[39m: one is not defined
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Bad auth!
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Bad auth!
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Not found docs!
+[31mERROR[39m: Cannot read properties of null (reading 'user_id')
+[31mERROR[39m: Cannot read properties of null (reading 'verifiedCode')
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Forbidden
+[31mERROR[39m: updatedProduct is not defined
+[33mWARN[39m: Forbidden
+[31mERROR[39m: Cannot read properties of null (reading 'user_id')
+[31mERROR[39m: Cannot read properties of null (reading 'user_id')
+[31mERROR[39m: Cannot read properties of null (reading 'user_id')
+[31mERROR[39m: Cannot read properties of null (reading 'user_id')
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Forbidden
+[33mWARN[39m: Forbidden
+[31mERROR[39m: Cannot destructure property 'userId' of 'req.one' as it is undefined.
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: Cannot destructure property '_id' of 'req.one' as it is undefined.
+[31mERROR[39m: Cannot destructure property '_id' of 'req.one' as it is undefined.
+[31mERROR[39m: Cannot read properties of undefined (reading 'role')
+[31mERROR[39m: Cannot read properties of undefined (reading 'role')
+[31mERROR[39m: Cannot read properties of undefined (reading 'role')
+[31mERROR[39m: data is not defined
+[31mERROR[39m: user_id is not defined
+[33mWARN[39m: GET /api/orders/65d6a4fe90f88898755566cb not found path
+[31mERROR[39m: orders validation failed: product_id: Path `product_id` is required., email: Path `email` is required.
+[31mERROR[39m: orders validation failed: product_id: Path `product_id` is required., email: Path `email` is required.
+[33mWARN[39m: POST /api/orders/:oid not found path
+[31mERROR[39m: orders validation failed: product_id: Path `product_id` is required., email: Path `email` is required.
+[33mWARN[39m: Forbidden
+[31mERROR[39m: orders validation failed: email: Path `email` is required.
+[33mWARN[39m: Not found docs!
+[31mERROR[39m: orders validation failed: user_id: Path `user_id` is required.
+[31mERROR[39m: orders validation failed: user_id: Path `user_id` is required.
+[31mERROR[39m: orders validation failed: user_id: Path `user_id` is required.
+[31mERROR[39m: mongoose is not defined
+[31mERROR[39m: orders validation failed: user_id: Path `user_id` is required.
+[31mERROR[39m: Cannot read properties of null (reading 'user_id')
+[31mERROR[39m: Cannot read properties of null (reading 'user_id')
+[31mERROR[39m: Cannot read properties of undefined (reading 'readOne')
+[31mERROR[39m: No puedes crear una orden con tu propio producto
+[31mERROR[39m: Cannot read properties of null (reading 'verifiedCode')
+[31mERROR[39m: orders validation failed: user_id: Path `user_id` is required.
+[31mERROR[39m: orders validation failed: user_id: Path `user_id` is required.
+[31mERROR[39m: No puedes crear una orden con tu propio producto
+[31mERROR[39m: orders validation failed: user_id: Path `user_id` is required.
+[31mERROR[39m: No puedes crear una orden con tu propio producto
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Not found docs!
+[33mWARN[39m: Forbidden
+[33mWARN[39m: Forbidden
+[31mERROR[39m: No puedes crear una orden con tu propio producto
+[31mERROR[39m: No puedes crear una orden con tu propio producto
+[31mERROR[39m: No puedes crear una orden con tu propio producto

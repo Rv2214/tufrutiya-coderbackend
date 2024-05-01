@@ -1,19 +1,40 @@
 import service from "../services/orders.service.js";
+import productService from "../services/products.service.js";
 
 class OrdersController {
   constructor() {
     this.service = service;
   }
-  create = async (req, res, next) => {
-    try {
-      const data = req.body;
-      data.user_id = req.one._id;
-      const response = await this.service.create(data);
-      return res.success201(response);
-    } catch (error) {
-      return next(error);
+create = async (req, res, next) => {
+  try {
+    let data = req.body;
+    const role = req.one.role;
+    const userId = req.one._id;
+
+    const productId = data.product_id;
+    const product = await productService.readOne(productId);
+      
+    console.log("data ", data);
+    console.log("role ", role);
+    console.log("userId ", userId);
+    console.log("product ", product);
+    
+    if (role === 1) {
+      const productUserId = product.user_id;
+      if (userId.equals(productUserId)) {
+        throw new Error("No puedes crear una orden con tu propio producto");
+      }
     }
-  };
+    if (!data.user_id) {
+      data.user_id = userId;
+    }
+    const response = await this.service.create(data);
+    return res.success201(response);
+  } catch (error) {
+    return next(error);
+  }
+};
+
   read = async (req, res, next) => {
     try {
       const options = {

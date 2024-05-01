@@ -7,6 +7,7 @@ import {
   stats,
   update,
   destroy,
+  updateRole
 } from "../../controllers/users.controller.js";
 
 class UsersRouter extends CustomRouter {
@@ -18,6 +19,7 @@ class UsersRouter extends CustomRouter {
     this.read("/stats", ["USER", "PREM", "ADMIN"], stats);
     this.update("/:uid", ["USER", "PREM", "ADMIN"], update);
     this.destroy("/:uid", ["USER", "PREM", "ADMIN"], destroy);
+    this.update("/:uid", ["USER", "PREM", "ADMIN"], updateRole);
   }
 }
 

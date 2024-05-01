@@ -13,7 +13,8 @@ import cors from "cors";
 import MongoStore from "connect-mongo";
 import args from "./src/utils/args.utils.js";
 import compression from "express-compression";
-
+import cluster from "cluster"
+/* import { cpus } from "os"; */
 
 import IndexRouter from "./src/routers/index.router.js";
 import pathHandler from "./src/middlewares/pathHandler.mid.js";
@@ -22,6 +23,9 @@ import __dirname from "./utils.js";
 import Handlebars from "handlebars";
 import wintson from "./src/middlewares/winston.js";
 import winston from "./src/utils/logger/winston.utils.js"
+
+/* const numberOfProcess = cpus().length
+console.log(numberOfProcess); */
 
 //server
 const server = express();
@@ -33,7 +37,6 @@ const ready = () => {
 //server.listen(PORT, ready);
 const httpServer = createServer(server);
 const socketServer = new Server(httpServer);
-httpServer.listen(PORT, ready);
 socketServer.on("connection", socketUtils);
 
 //views
@@ -85,3 +88,14 @@ server.use(pathHandler);
 export { socketServer };
 
 winston.INFO("args: ", args);
+
+
+//clusters
+console.log(cluster.isPrimary);
+if(cluster.isPrimary){
+  console.log("PRIMARY ID: " +process.pid);
+  cluster.fork()
+}else{
+  console.log("WORKER ID: " +process.pid);
+  httpServer.listen(PORT, ready);
+}

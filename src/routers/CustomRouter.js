@@ -38,14 +38,14 @@ export default class CustomRouter {
 
   policies = (arrayOfPolicies) => async (req, res, next) => {
     try {
-      if (arrayOfPolicies.includes("PUBLIC")) return next();
       let token = req.cookies["token"];
-      if (!token) return res.json(errors.badauth);
-      else {
+
+      if (token) {
         const data = jwt.verify(token, process.env.SECRET);
-        if (!data) return res.error400("Bad auth by token!");
-        else {
+
+        if (data) {
           const { email, role } = data;
+
           if (
             (role === 0 && arrayOfPolicies.includes("USER")) ||
             (role === 1 && arrayOfPolicies.includes("ADMIN")) ||
@@ -54,9 +54,16 @@ export default class CustomRouter {
             const one = await users.readByEmail(email);
             req.one = one;
             return next();
-          } else return res.error403();
+          }
+        } else {
+          return res.error400("Bad auth by token!");
         }
       }
+      if (!arrayOfPolicies.includes("PUBLIC")) {
+        return res.error403();
+      }
+
+      return next();
     } catch (error) {
       return next(error);
     }

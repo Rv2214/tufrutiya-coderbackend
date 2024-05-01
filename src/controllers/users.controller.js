@@ -110,9 +110,20 @@ class UsersController {
       return next(error);
     }
   };
+
+  updateRole = async (req, res, next) => {
+    try {
+      const { uid } = req.params;
+      const { newRole } = req.body;
+      const updatedUser = await service.updateRole(uid, newRole);
+      return res.success200( updatedUser );
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 export default UsersController;
 const controller = new UsersController();
-const { create, read, stats, readOne, readByEmail, update, destroy } = controller;
-export { create, read, stats, readOne, readByEmail, update, destroy };
+const { create, read, stats, readOne, readByEmail, update, destroy, updateRole } = controller;
+export { create, read, stats, readOne, readByEmail, update, destroy, updateRole };

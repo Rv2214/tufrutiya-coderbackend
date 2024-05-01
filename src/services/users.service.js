@@ -17,11 +17,26 @@ class UsersService {
   readByEmail = async (email) => await repository.readByEmail(email);
   update = async (id, data) => await repository.update(id, data);
   destroy = async (id) => await repository.destroy(id);
-  register = async (data) =>{
+  register = async (data) => {
     try {
-      await sendEmail(data)
+      await sendEmail(data);
     } catch (error) {
-      throw error
+      throw error;
+    }
+  };
+  async updateRole(uid, newRole) {
+    try {
+      const user = await this.repository.readOne(uid);
+      if (!user) {
+        throw new Error("Usuario no encontrado");
+      }
+      user.role = newRole;      
+      const updatedUser = await this.repository.update(uid, {
+        role: newRole,
+      });
+      return updatedUser;
+    } catch (error) {
+      throw error;
     }
   }
 }
