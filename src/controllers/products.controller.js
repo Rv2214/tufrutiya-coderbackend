@@ -23,7 +23,6 @@ read = async (req, res, next) => {
     let role;
     if (req.one) {
       role = req.one.role;
-      console.log(req.one.role);
     }
     
     const options = {

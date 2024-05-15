@@ -1,5 +1,9 @@
 import jwt from "jsonwebtoken";
 
+function generateResetToken(data) {
+  return createToken({ data },  process.env.SECRET, { expiresIn: 3600 }); 
+}
+
 function createToken(data) {
   const token = jwt.sign(data, process.env.SECRET, {
     expiresIn: 60 * 60 * 24 * 7,
@@ -17,4 +21,4 @@ function verifytoken(token) {
   throw error;
 }
 
-export { createToken, verifytoken };
+export { createToken, verifytoken, generateResetToken };

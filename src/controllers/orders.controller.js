@@ -13,11 +13,6 @@ create = async (req, res, next) => {
 
     const productId = data.product_id;
     const product = await productService.readOne(productId);
-      
-    console.log("data ", data);
-    console.log("role ", role);
-    console.log("userId ", userId);
-    console.log("product ", product);
     
     if (role === 1) {
       const productUserId = product.user_id;

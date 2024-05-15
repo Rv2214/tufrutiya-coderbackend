@@ -1,4 +1,6 @@
 import service from "../services/users.service.js";
+import { sendResetPasswordEmail } from "../utils/sendEmail.utils.js";
+import { verifytoken } from "../utils/token.utils.js";
 
 class SessionsController {
   constructor() {
@@ -39,18 +41,6 @@ class SessionsController {
       return next(error);
     }
   };
-/*   me = async (req, res, next) => {
-    try {
-      const user = {
-        email: service.email,
-        role: service.role,
-        photo: service.photo,
-      };
-      return res.success200(user);
-    } catch (error) {
-      return next(error);
-    }
-  }; */
   signout = async (req, res, next) => {
     try {
       return res.clearCookie("token").success200("Signed out!");
@@ -80,6 +70,44 @@ class SessionsController {
     }
   };
 
+  recoveryPassword = async (req, res, next) => {
+    try {
+      const { email } = req.body;
+      const user = await service.readByEmail(email);
+      if (!user) {
+        throw new Error("Usuario no encontrado");
+      }
+      await sendResetPasswordEmail(user);
+      return res.status(200).json({
+        message: "Correo electrónico enviado para restablecer contraseña",
+      });
+    } catch (error) {
+      return next(error);
+    }
+  };
+
+verifyTokenAndProceed = async (req, res, next) => {
+  try {
+    const token = req.params.token; 
+    console.log("token: " + token);
+    if (!token) {
+      throw new Error("Token no proporcionado");
+    }
+    const decodedToken = verifytoken(token);
+    const userId = decodedToken.data;
+    const user = await service.readOne(userId);
+    if (!user) {
+      throw new Error("Usuario no encontrado");
+    }
+    req.user = user;
+    const { newPassword } = req.body;
+    await service.updatePassword(user, newPassword);
+    return res.success201("Contraseña actualizada");
+  } catch (error) {
+    return next(error);
+  }
+};
+
   badauth = (req, res, next) => {
     try {
       return res.error401();
@@ -91,6 +119,25 @@ class SessionsController {
 
 export default SessionsController;
 const controller = new SessionsController();
-const { register, login, google, github, /* me, */ signout, badauth, verifyAccount } =
-  controller;
-export { register, login, google, github,/*  me, */ signout, badauth, verifyAccount };
+const {
+  register,
+  login,
+  google,
+  github,
+  signout,
+  badauth,
+  verifyAccount,
+  recoveryPassword,
+  verifyTokenAndProceed,
+} = controller;
+export {
+  register,
+  login,
+  google,
+  github,
+  signout,
+  badauth,
+  verifyAccount,
+  recoveryPassword,
+  verifyTokenAndProceed,
+};

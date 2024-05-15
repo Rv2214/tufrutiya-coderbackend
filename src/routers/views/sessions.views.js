@@ -17,4 +17,13 @@ sessionsRouter.get("/login", async (req, res, next) => {
   }
 });
 
+sessionsRouter.get("/resetpassword/:token", async (req, res, next) => {
+  try {
+    return res.render("forgotpassword",   { token: req.params.token } );
+  } catch (error) {
+    return next(error);
+  }
+});
+
+
 export default sessionsRouter;
