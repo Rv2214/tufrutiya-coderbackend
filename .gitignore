@@ -3,3 +3,6 @@ node_modules
 .env.dev
 .env.prod
 .env.test
+
+
+src/utils/errors/errors.log

@@ -721,3 +721,42 @@
 [31mERROR[39m: Cannot do exclusion on field password in inclusion projection
 [31mERROR[39m: Cannot do exclusion on field password in inclusion projection
 [33mWARN[39m: GET /api/orders/report/65bbdd079731d4b931f4722a not found path
+[31mERROR[39m: arrayOfPolicies.includes is not a function
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: tickets validation failed: total_amount: Cast to Number failed for value "NaN" (type number) at path "total_amount"
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: tickets validation failed: user_id: Cast to ObjectId failed for value "<ref *1> {
+  order_id: '66451eb917ad08c831d82a31',
+  user_id: [Circular *1],
+  total_amount: NaN
+}" (type Object) at path "user_id" because of "BSONError", total_amount: Cast to Number failed for value "NaN" (type number) at path "total_amount"
+[31mERROR[39m: tickets validation failed: user_id: Cast to ObjectId failed for value "<ref *1> {
+  order_id: '66451eb917ad08c831d82a31',
+  user_id: [Circular *1],
+  total_amount: NaN
+}" (type Object) at path "user_id" because of "BSONError", total_amount: Cast to Number failed for value "NaN" (type number) at path "total_amount"
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: tickets validation failed: user_id: Path `user_id` is required.
+[31mERROR[39m: tickets validation failed: user_id: Path `user_id` is required.
+[31mERROR[39m: tickets validation failed: user_id: Path `user_id` is required.
+[31mERROR[39m: tickets validation failed: user_id: Path `user_id` is required.
+[31mERROR[39m: tickets validation failed: user_id: Path `user_id` is required.
+[33mWARN[39m: GET /api/tickets not found path
+[33mWARN[39m: GET /api/tickets?=662ffcb07cb36373a6a731a3 not found path
+[31mERROR[39m: Cannot do exclusion on field password in inclusion projection
+[31mERROR[39m: arrayOfPolicies.includes is not a function
+[31mERROR[39m: Cannot do exclusion on field password in inclusion projection
+[31mERROR[39m: Cannot read properties of undefined (reading '_id')
+[31mERROR[39m: filter is not defined
+[31mERROR[39m: Cannot access 'filter' before initialization
