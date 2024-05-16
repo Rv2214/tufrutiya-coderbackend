@@ -350,6 +350,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -589,7 +597,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"rodrigo.e.vazquez@gmail.com\",\r\n    \"verifiedCode\": \"v+exGrl4kkrjPXlQ\"\r\n\r\n}",
+							"raw": "{\r\n    \"email\": \"jcvazquez@live.com.ar\",\r\n    \"verifiedCode\": \"OMJ7ujjA7cYiLScA\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -597,7 +605,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:{{PORT}}/api/sessions/",
+							"raw": "localhost:{{PORT}}/api/sessions/verify-account",
 							"host": [
 								"localhost"
 							],
@@ -605,9 +613,54 @@
 							"path": [
 								"api",
 								"sessions",
-								""
+								"verify-account"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot-password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"rodrigo.e.vazquez@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:{{PORT}}/api/sessions/forgot-password",
+							"host": [
+								"localhost"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"sessions",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
@@ -658,6 +711,58 @@
 							"path": [
 								"api",
 								"comments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tickets",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"order_id\": \"66451eb917ad08c831d82a31\",\r\n  \"user_id\": \"662ffcb07cb36373a6a731a3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/tickets",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/tickets",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"tickets"
 							]
 						}
 					},
