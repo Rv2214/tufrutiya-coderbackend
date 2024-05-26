@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.statusCode === 201) {
         alert("Product created successfully!");
-        // Puedes redirigir a otra página o hacer cualquier otra acción aquí
       } else {
         alert("Error creating product: " + response.message);
       }

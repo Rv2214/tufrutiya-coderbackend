@@ -8,6 +8,7 @@ class ProductDTO{
         this.photo= data.photo || "https://i.postimg.cc/L8ZpLDx3/product-Default.webp"
         this.price= data.price
         this.stock= data.stock
+        this.user_id= data.user_id
         argsUtils.env !== "prod" && (this.updatedAt = new Date());
         argsUtils.env !== "prod" && (this.createdAt = new Date());
     }

@@ -10,6 +10,7 @@ import {
   signout,
   badauth,
   verifyAccount,
+  recoveryPassword, verifyTokenAndProceed
 } from "../../controllers/sessions.controller.js";
 
 class SessionsRouter extends CustomRouter {
@@ -30,21 +31,6 @@ class SessionsRouter extends CustomRouter {
       }),
       google
     );
-    /*     this.create(
-      "/github",
-      ["PUBLIC"],
-      passport.authenticate("github", { scope: ["email", "profile"] })
-    ); */
-    /*     this.read(
-      "/github/callback",
-      ["PUBLIC"],
-      passport.authenticate("github", {
-        session: false,
-        failureRedirect: "/api/sessions/badauth",
-      }),
-      github
-    ); */
-    /*     this.create("/", ["USER", "ADMIN", "PREM"], me); */
     this.create(
       "/signout",
       ["USER", "ADMIN", "PREM"],
@@ -52,7 +38,9 @@ class SessionsRouter extends CustomRouter {
       signout
     );
     this.read("/badauth", ["PUBLIC"], badauth);
-    this.use("/", verifyAccount);
+    this.create("/forgot-password", ["PUBLIC"], recoveryPassword )
+    this.update("/resetpassword/:token", ["PUBLIC"],  verifyTokenAndProceed )
+    this.use("/verify-account", verifyAccount);
   }
 }
 

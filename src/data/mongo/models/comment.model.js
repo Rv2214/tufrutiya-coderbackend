@@ -16,7 +16,7 @@ schema.pre("find", function () {
   this.populate("user_id", "-password -createdAt -updatedAt -__v");
 });
 schema.pre("find", function () {
-  this.populate("product_id", "title poster place price");
+  this.populate("product_id", "title price stock");
 });
 
 const Comment = model(collection, schema);

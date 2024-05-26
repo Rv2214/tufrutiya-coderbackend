@@ -13,7 +13,6 @@ registerButton.addEventListener("click", async () => {
     };
     let response = await fetch("/api/sessions/register", opts);
     response = await response.json();
-    /* console.log(response); */
     if (response.statusCode === 201) {
       alert("Registered!");
       location.replace("/sessions/login");

@@ -5,9 +5,7 @@ import ProductsRouter from "./products.router.js";
 import ordersRouter from "./orders.router.js";
 import sessionsRouter from "./sessions.router.api.js";
 import commentsRouter from "./comments.router.js";
-import passCallBackMid from "../../middlewares/passCallBack.mid.js";
-import winstonUtils from "../../utils/logger/winston.utils.js";
-
+import ticketsRouter from "./tickets.router.api.js";
 
 const product = new ProductsRouter();
 export default class ApiRouter extends CustomRouter {
@@ -17,6 +15,7 @@ export default class ApiRouter extends CustomRouter {
     this.use("/orders", ordersRouter);
     this.use("/sessions", sessionsRouter);
     this.use("/comments", commentsRouter);
+    this.use("/tickets", ticketsRouter);
     this.read("/sum", ["PUBLIC"], async (req, res) => {
       try {
         winston.INFO("global process id: " + process.pid);
@@ -29,5 +28,3 @@ export default class ApiRouter extends CustomRouter {
     });
   }
 }
-
-

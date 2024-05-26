@@ -1,7 +1,7 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 
-let colecction = "products";
+let collection = "products";
 const schema = new Schema(
   {
     title: { type: String, required: true, index: true },
@@ -11,12 +11,15 @@ const schema = new Schema(
     },
     price: { type: Number, required: true },
     stock: { type: Number, required: true },
+    user_id: { type: Types.ObjectId, required: true, ref: "users" },
   },
   { timestamps: true }
 );
 
 schema.plugin(mongoosePaginate);
-
-const Product = model(colecction, schema);
+schema.pre("find", function () {
+  this.populate("user_id");
+});
+const Product = model(collection, schema);
 
 export default Product;

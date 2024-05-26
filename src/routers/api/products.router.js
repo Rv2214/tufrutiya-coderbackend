@@ -10,8 +10,8 @@ import {
 
 export default class ProductsRouter extends CustomRouter {
   init() {
-    this.create("/", ["ADMIN", "PREM"], /* passCallBackMid("jwt"), */ create);
-    this.read("/", ["PUBLIC"], read);
+    this.create("/", ["ADMIN", "PREM"], create);
+    this.read("/", ["PUBLIC", "USER", "PREM", "ADMIN"], read);
     this.read("/:pid", ["PUBLIC"], readOne);
     this.destroy("/:pid", ["ADMIN", "PREM"], destroy);
     this.update("/:pid", ["ADMIN", "PREM"], update);

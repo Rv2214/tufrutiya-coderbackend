@@ -23,6 +23,8 @@
     "passport-local": "^1.0.0",
     "session-file-store": "^1.5.0",
     "socket.io": "^4.7.4",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
     "winston": "^3.13.0"
   },
   "devDependencies": {
@@ -36,7 +38,9 @@
     "simplex": "artillery quick --count 40 --num 50 'http://localhost:8080/simplex' -o ./test/quick/simplex.json",
     "complex": "artillery quick --count 40 --num 50 'http://localhost:8080/complex' -o ./test/quick/complex.json",
     "performance": "artillery run ./test/flow/flow.yaml --output ./test/flow/flow.json",
-    "report": "artillery report ./test/flow/flow.json"
+    "report": "artillery report ./test/flow/flow.json",
+    "image": "docker build -t tufrutiya .",
+    "container": "docker run -p 8080:8080 tufrutiya"
   },
   "name": "04_desafio4",
   "version": "1.0.0",

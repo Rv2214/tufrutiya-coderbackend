@@ -1,17 +1,16 @@
 import { model, Schema, Types } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 
-const collection = "orders";
+const collection = "tickets";
 const schema = new Schema(
   {
     user_id: { type: Types.ObjectId, required: true, ref: "users" },
-    email: { type: String, required: true },
-    product_id: { type: Types.ObjectId, required: true, ref: "products" },
-    quantity: { type: Number, default: 1 },
-    state: {
+    order_id: { type: Types.ObjectId, required: true, ref: "orders" },
+    total_amount: { type: Number, required: true },
+    status: {
       type: String,
-      default: "reserved",
-      enum: ["reserved", "payed", "delivered"],
+      default: "pending",
+      enum: ["pending", "paid", "canceled"],
     },
   },
   { timestamps: true }
@@ -22,9 +21,8 @@ schema.pre("find", function () {
   this.populate("user_id", "name -password -createdAt -updatedAt -__v");
 });
 schema.pre("find", function () {
-  this.populate("product_id", "title price stock");
+  this.populate("order_id", "product_id quantity");
 });
 
-
-const Order = model(collection, schema);
-export default Order;
+const Ticket = model(collection, schema);
+export default Ticket;

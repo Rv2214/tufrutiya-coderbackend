@@ -9,11 +9,11 @@ import {
 
 class OrdersRouter extends CustomRouter {
   init() {
-    this.create("/", ["USER", "PREM"], create);
+    this.create("/", ["USER", "PREM", "ADMIN"], create);
     this.read("/bills/:uid", ["ADMIN"], report);
-    this.read("/", ["USER", "PREM"], read);
-    this.update("/:oid", ["USER", "PREM"], update);
-    this.destroy("/:oid", ["USER", "PREM"], destroy);
+    this.read("/", ["USER", "PREM", "ADMIN"], read);
+    this.update("/:oid", ["USER", "PREM", "ADMIN"], update);
+    this.destroy("/:oid", ["USER", "PREM", "ADMIN"], destroy);
   }
 }
 
