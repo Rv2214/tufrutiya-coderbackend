@@ -1,8 +1,4 @@
 import repository from "../repositories/products.repositories.js";
-/* import products from "../data/mongo/products.mongo.js"; */
-/* import dao from "../data/index.factory.js";
-
-const {products} = dao */
 
 class ProductsService {
   constructor() {

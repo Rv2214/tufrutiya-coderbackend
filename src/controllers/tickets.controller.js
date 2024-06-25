@@ -25,30 +25,29 @@ class TicketsController {
       return next(error);
     }
   };
-  
-read = async (req, res, next) => {
-  try {
-    const options = {
-      limit: req.query.limit || 20,
-      page: req.query.page || 1,
-      sort: { createdAt: -1 },
-      lean: true,
-    };
 
-    const userId = req.params.userId; // Obtiene el userId desde los parámetros de la ruta
-    const filter = {};
+  read = async (req, res, next) => {
+    try {
+      const options = {
+        limit: req.query.limit || 20,
+        page: req.query.page || 1,
+        sort: { createdAt: -1 },
+        lean: true,
+      };
 
-    if (userId) {
-      filter.user_id = userId;
+      const userId = req.params.userId; // Obtiene el userId desde los parámetros de la ruta
+      const filter = {};
+
+      if (userId) {
+        filter.user_id = userId;
+      }
+
+      const all = await this.service.read({ filter, options });
+      return res.success200(all);
+    } catch (error) {
+      return next(error);
     }
-
-    const all = await this.service.read({ filter, options });
-    return res.success200(all);
-  } catch (error) {
-    return next(error);
-  }
-};
-
+  };
 
   update = async (req, res, next) => {
     try {

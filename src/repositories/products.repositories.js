@@ -13,20 +13,17 @@ class ProductsRep {
     return response;
   };
   read = async ({ filter, options }) => {
-    /* data =  new ProductDTO(data); */
-    const response = await this.model.read({ filter, options});
-    return response
-  }
-    
-  
-  
-    readOne = async (id) => await this.model.readOne(id);
-    update = async (id, data) => {
+    const response = await this.model.read({ filter, options });
+    return response;
+  };
+
+  readOne = async (id) => await this.model.readOne(id);
+  update = async (id, data) => {
     data = new ProductDTO(data);
     const response = await this.model.update(id, data);
     return response;
-  }
-  
+  };
+
   destroy = async (id) => await this.model.destroy(id);
 }
 

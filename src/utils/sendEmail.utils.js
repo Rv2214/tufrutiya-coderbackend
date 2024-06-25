@@ -1,8 +1,6 @@
 import { createTransport } from "nodemailer";
-import env from "../utils/env.util.js"; 
+import env from "../utils/env.util.js";
 import { generateResetToken } from "./token.utils.js";
-
-
 
 const sendEmail = async (data) => {
   try {
@@ -25,7 +23,7 @@ const sendEmail = async (data) => {
   } catch (error) {
     throw error;
   }
-}
+};
 
 const sendResetPasswordEmail = async (data) => {
   try {
@@ -54,7 +52,6 @@ const sendResetPasswordEmail = async (data) => {
   } catch (error) {
     throw error;
   }
-}
-
+};
 
 export { sendEmail, sendResetPasswordEmail };

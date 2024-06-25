@@ -1,18 +1,15 @@
 import { Router } from "express";
 import products from "../../data/mongo/products.mongo.js";
-/* import product from "../../data/fs/products.fs.js"; */
 
 const productRouter = Router();
 
-///productRouter.get(authenticationMiddleware);
 
 productRouter.get("/", async (req, res, next) => {
   try {
     const isAuthenticated = !!req.user;
-    // Determina si el usuario es un administrador (esto depende de cómo se estructura el token)
     const isAdmin = req.user && req.user.role === "admin";
-    const perPage = 4; // Número de productos por página
-    const page = parseInt(req.query.page) || 1; // Página actual, predeterminada a 1 si no se proporciona
+    const perPage = 4; 
+    const page = parseInt(req.query.page) || 1; 
     const options = {
       limit: 4,
       page: req.query.page || 1,
@@ -50,7 +47,6 @@ productRouter.get("/", async (req, res, next) => {
 productRouter.get("/form", (req, res, next) => {
   try {
     const isAuthenticated = !!req.user;
-    // Determina si el usuario es un administrador (esto depende de cómo se estructura el token)
     const isAdmin = req.user && req.user.role === "admin";
     return res.render("form", {
       isAdmin,

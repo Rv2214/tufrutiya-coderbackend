@@ -18,47 +18,47 @@ class ProductsController {
     }
   };
 
-read = async (req, res, next) => {
-  try {
-    let role;
-    if (req.one) {
-      role = req.one.role;
-    }
-    
-    const options = {
-      limit: req.query.limit || 10,
-      page: req.query.page || 1,
-      sort: { title: 1 },
-      lean: true,
-    };
-    const filter = {};
+  read = async (req, res, next) => {
+    try {
+      let role;
+      if (req.one) {
+        role = req.one.role;
+      }
 
-    if (role === 1 || role === 'PREM') {
-      filter.user_id = { $ne: req.one._id };
-    }
-    
-    if (req.query.title) {
-      filter.title = new RegExp(req.query.title.trim(), "i");
-    }
+      const options = {
+        limit: req.query.limit || 10,
+        page: req.query.page || 1,
+        sort: { title: 1 },
+        lean: true,
+      };
+      const filter = {};
 
-    if (req.query.sort === "desc") {
-      options.sort.title = "desc";
-    }
+      if (role === 1 || role === "PREM") {
+        filter.user_id = { $ne: req.one._id };
+      }
 
-    if (role !== 1 && role !== 'PREM') {
-      delete filter.user_id;
-    }
-    const products = await this.service.read({ filter, options });
+      if (req.query.title) {
+        filter.title = new RegExp(req.query.title.trim(), "i");
+      }
 
-    if (products.docs.length > 0) {
-      return res.success200(products);
-    } else {
-      CustomError.new(errors.notFound);
+      if (req.query.sort === "desc") {
+        options.sort.title = "desc";
+      }
+
+      if (role !== 1 && role !== "PREM") {
+        delete filter.user_id;
+      }
+      const products = await this.service.read({ filter, options });
+
+      if (products.docs.length > 0) {
+        return res.success200(products);
+      } else {
+        CustomError.new(errors.notFound);
+      }
+    } catch (error) {
+      return next(error);
     }
-  } catch (error) {
-    return next(error);
-  }
-};
+  };
 
   readOne = async (req, res, next) => {
     try {
@@ -112,23 +112,23 @@ read = async (req, res, next) => {
       const userId = product.user_id;
       const role = req.one.role;
 
-      if (role === 1 && req.one._id.equals(userId)){
+      if (role === 1 && req.one._id.equals(userId)) {
         const deletedProduct = await this.service.destroy(pid);
-      if (deletedProduct) {
-        return res.success200(deletedProduct);
+        if (deletedProduct) {
+          return res.success200(deletedProduct);
+        } else {
+          throw new Error("No se pudo eliminar el producto");
+        }
+      } else if (role === 2) {
+        const deletedProduct = await this.service.destroy(pid);
+        if (deletedProduct) {
+          return res.success200(deletedProduct);
+        } else {
+          throw new Error("No se pudo eliminar el producto");
+        }
       } else {
-        throw new Error("No se pudo eliminar el producto");
+        CustomError.new(errors.forbidden);
       }
-    } else if (role === 2) {
-      const deletedProduct = await this.service.destroy(pid);
-      if (deletedProduct) {
-        return res.success200(deletedProduct);
-      } else {
-        throw new Error("No se pudo eliminar el producto");
-      }
-    } else {
-      CustomError.new(errors.forbidden);
-    }
     } catch (error) {
       return next(error);
     }

@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 function generateResetToken(data) {
-  return createToken({ data },  process.env.SECRET, { expiresIn: 3600 }); 
+  return createToken({ data }, process.env.SECRET, { expiresIn: 3600 });
 }
 
 function createToken(data) {
