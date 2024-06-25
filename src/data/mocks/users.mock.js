@@ -2,8 +2,6 @@ import { faker } from "@faker-js/faker";
 import repository from "../../repositories/users.repositories.js";
 import winston from "../../utils/logger/winston.utils.js";
 
-
-
 export default function usersMock() {
   return {
     name: faker.person.firstName(),
@@ -16,10 +14,9 @@ export default function usersMock() {
   };
 }
 
-
 async function createMocks() {
-    const data = usersMock();
-    await repository.create(data);
-    winston.INFO("USER CREATED!");
+  const data = usersMock();
+  await repository.create(data);
+  winston.INFO("USER CREATED!");
 }
 createMocks();

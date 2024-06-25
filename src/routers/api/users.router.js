@@ -7,19 +7,25 @@ import {
   stats,
   update,
   destroy,
-  updateRole
+  updateRole,
 } from "../../controllers/users.controller.js";
+import passCallBackMid from "../../middlewares/passCallBack.mid.js";
 
 class UsersRouter extends CustomRouter {
   init() {
     this.create("/", ["PUBLIC"], create);
     this.read("/", ["PUBLIC"], read);
     this.read("/:uid", ["PUBLIC"], readOne);
-    this.read("/", ["PUBLIC"], readByEmail)
+    this.read("/", ["PUBLIC"], readByEmail);
     this.read("/stats", ["USER", "PREM", "ADMIN"], stats);
     this.update("/:uid", ["USER", "PREM", "ADMIN"], update);
     this.destroy("/:uid", ["USER", "PREM", "ADMIN"], destroy);
-    this.update("/:uid", ["USER", "PREM", "ADMIN"], updateRole);
+    this.update(
+      "/:uid",
+      ["USER", "PREM", "ADMIN"],
+      passCallBackMid("jwt"),
+      updateRole
+    );
   }
 }
 

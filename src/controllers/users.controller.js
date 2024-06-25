@@ -13,7 +13,7 @@ class UsersController {
       if (response) {
         return res.success200(response);
       } else {
-        CustomError.new(errors.notFound)
+        CustomError.new(errors.notFound);
       }
     } catch (error) {
       return next(error);
@@ -38,7 +38,7 @@ class UsersController {
       if (all) {
         return res.success200(all);
       } else {
-        CustomError.new(errors.notFound)
+        CustomError.new(errors.notFound);
       }
     } catch (error) {
       return next(error);
@@ -51,7 +51,7 @@ class UsersController {
       if (all) {
         return res.success200(all);
       } else {
-        CustomError.new(errors.notFound)
+        CustomError.new(errors.notFound);
       }
     } catch (error) {
       return next(error);
@@ -64,7 +64,7 @@ class UsersController {
       if (one) {
         return res.success200(one);
       } else {
-        CustomError.new(errors.notFound)
+        CustomError.new(errors.notFound);
       }
     } catch (error) {
       return next(error);
@@ -72,17 +72,17 @@ class UsersController {
   };
   readByEmail = async (req, res, next) => {
     try {
-      const { email } = req.params
-      const response = await this.service.readByEmail(email)
+      const { email } = req.params;
+      const response = await this.service.readByEmail(email);
       if (response) {
         return res.success200(response);
       } else {
-        CustomError.new(errors.notFound)
+        CustomError.new(errors.notFound);
       }
     } catch (error) {
       return next(error);
     }
-  }
+  };
   update = async (req, res, next) => {
     try {
       const { uid } = req.params;
@@ -91,7 +91,7 @@ class UsersController {
       if (response) {
         return res.success200(response);
       } else {
-        CustomError.new(errors.notFound)
+        CustomError.new(errors.notFound);
       }
     } catch (error) {
       return next(error);
@@ -104,7 +104,7 @@ class UsersController {
       if (response) {
         return res.success200(response);
       } else {
-        CustomError.new(errors.notFound)
+        CustomError.new(errors.notFound);
       }
     } catch (error) {
       return next(error);
@@ -116,14 +116,32 @@ class UsersController {
       const { uid } = req.params;
       const { newRole } = req.body;
       const updatedUser = await service.updateRole(uid, newRole);
-      return res.success200( updatedUser );
+      return res.success200(updatedUser);
     } catch (error) {
       return next(error);
     }
-  }
+  };
 }
 
 export default UsersController;
 const controller = new UsersController();
-const { create, read, stats, readOne, readByEmail, update, destroy, updateRole } = controller;
-export { create, read, stats, readOne, readByEmail, update, destroy, updateRole };
+const {
+  create,
+  read,
+  stats,
+  readOne,
+  readByEmail,
+  update,
+  destroy,
+  updateRole,
+} = controller;
+export {
+  create,
+  read,
+  stats,
+  readOne,
+  readByEmail,
+  update,
+  destroy,
+  updateRole,
+};

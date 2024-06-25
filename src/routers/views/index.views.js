@@ -4,9 +4,6 @@ import productRouter from "./products.views.js";
 import sessionsRouter from "./sessions.views.js";
 import orderRouter from "./orders.views.js";
 import isAuth from "../../middlewares/isAuth.js";
-//import passport from "../../middlewares/passport.mid.js";
-/* import isLoggedInMid from "../../middlewares/isLoggedIn.mid.js"; */
-/* import { Router } from "express"; */
 
 export default class ViewsRouter extends CustomRouter {
   init() {
@@ -16,7 +13,6 @@ export default class ViewsRouter extends CustomRouter {
     this.read("/", ["PUBLIC"], async (req, res, next) => {
       try {
         const isAuthenticated = !!req.user;
-        // Determina si el usuario es un administrador (esto depende de cómo se estructura el token)
         const isAdmin = req.user && req.user.role === "admin";
         const perPage = 3;
         const options = {
@@ -54,23 +50,3 @@ export default class ViewsRouter extends CustomRouter {
     });
   }
 }
-
-/* viewsRouter.get("/", (req, res, next) => {
-  try {
-    const date = new Date();
-    const userRole = req.session.role;
-    const isAuthenticated = req.session.email ? true : false;
-    
-
-    return res.render("index", { date, userRole, isAuthenticated, isLoggedIn: isAuthenticated });
-  } catch (error) {
-    next(error);
-  }
-});
-
-
-viewsRouter.use("/products", productRouter);
-viewsRouter.use("/sessions", sessionsRouter);
-viewsRouter.use("/orders", orderRouter); */
-
-/* export default viewsRouter; */

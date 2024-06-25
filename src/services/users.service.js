@@ -1,7 +1,7 @@
 import repository from "../repositories/users.repositories.js";
 import UserDTO from "../dto/user.dto.js";
 import { sendEmail } from "../utils/sendEmail.utils.js";
-import { createHash } from "../utils/hash.utils.js" 
+import { createHash } from "../utils/hash.utils.js";
 
 class UsersService {
   constructor() {
@@ -40,26 +40,23 @@ class UsersService {
       throw error;
     }
   }
-async updatePassword(user, newPassword) {
-  try {
-    if (!user) {
-      throw new Error('Usuario no encontrado.');
-    }
-/*     user.verified = true, 
-    user.password = newPassword; */
-    const hashedPassword = createHash(newPassword)
-    // Actualiza los datos del usuario, incluyendo la contraseña hasheada
-    const updatePassword = await repository.update(user._id, { 
-      verified: true, 
-      password: hashedPassword 
-    });
+  async updatePassword(user, newPassword) {
+    try {
+      if (!user) {
+        throw new Error("Usuario no encontrado.");
+      }
+      const hashedPassword = createHash(newPassword);
+      const updatePassword = await repository.update(user._id, {
+        verified: true,
+        password: hashedPassword,
+      });
 
-    console.log("updatePassword", updatePassword);
-    return updatePassword;
-  } catch (error) {
-    throw error;
+      console.log("updatePassword", updatePassword);
+      return updatePassword;
+    } catch (error) {
+      throw error;
+    }
   }
-}
 }
 
 const service = new UsersService();

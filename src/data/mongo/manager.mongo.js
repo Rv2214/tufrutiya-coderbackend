@@ -18,7 +18,6 @@ class MongoManager {
   async read({ filter, options }) {
     try {
       const all = await this.model.paginate(filter, options);
-      /* winston.INFO(all.docs); */
       if (all.totalPages === 0) {
         const error = new Error("There aren't documents");
         error.statusCode = 404;
@@ -69,7 +68,6 @@ class MongoManager {
   async readOne(id) {
     try {
       const one = await this.model.findById(id);
-      /* notFoundOne(one); */
       return one;
     } catch (error) {
       throw error;
@@ -89,7 +87,6 @@ class MongoManager {
     try {
       const opt = { new: true };
       const one = await this.model.findByIdAndUpdate(id, data, opt);
-      /* notFoundOne(one); */
       return one;
     } catch (error) {
       throw error;
@@ -99,7 +96,6 @@ class MongoManager {
   async destroy(id) {
     try {
       const one = await this.model.findByIdAndDelete(id);
-      /* notFoundOne(one); */
       return one;
     } catch (error) {
       throw error;

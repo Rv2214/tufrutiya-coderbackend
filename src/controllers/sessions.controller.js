@@ -27,20 +27,28 @@ class SessionsController {
       return next(error);
     }
   };
-  google = async (req, res, next) => {
+
+  isAuth = async (req, res, next) => {
     try {
-      return res.success200("Logged in with Google!");
+      const token = req.cookies.token;
+      if (!token) {
+        return res.status(401).json({ message: "No token provided" });
+      }
+      const userData = verifytoken(token);
+      if (!userData) {
+        return res.status(401).json({ message: "Invalid token" });
+      }
+      const user = await service.readOne(userData._id);
+      if (!user) {
+        return res.status(401).json({ message: "User not found" });
+      }
+      req.user = user;
+      next();
     } catch (error) {
       return next(error);
     }
   };
-  github = async (req, res, next) => {
-    try {
-      return res.success200("Logged in with Github!");
-    } catch (error) {
-      return next(error);
-    }
-  };
+
   signout = async (req, res, next) => {
     try {
       return res.clearCookie("token").success200("Signed out!");
@@ -48,7 +56,6 @@ class SessionsController {
       return next(error);
     }
   };
-
   verifyAccount = async (req, res, next) => {
     try {
       const { email, verifiedCode } = req.body;
@@ -69,7 +76,6 @@ class SessionsController {
       return next(error);
     }
   };
-
   recoveryPassword = async (req, res, next) => {
     try {
       const { email } = req.body;
@@ -85,29 +91,27 @@ class SessionsController {
       return next(error);
     }
   };
-
-verifyTokenAndProceed = async (req, res, next) => {
-  try {
-    const token = req.params.token; 
-    console.log("token: " + token);
-    if (!token) {
-      throw new Error("Token no proporcionado");
+  verifyTokenAndProceed = async (req, res, next) => {
+    try {
+      const token = req.params.token;
+      console.log("token: " + token);
+      if (!token) {
+        throw new Error("Token no proporcionado");
+      }
+      const decodedToken = verifytoken(token);
+      const userId = decodedToken.data;
+      const user = await service.readOne(userId);
+      if (!user) {
+        throw new Error("Usuario no encontrado");
+      }
+      req.user = user;
+      const { newPassword } = req.body;
+      await service.updatePassword(user, newPassword);
+      return res.success201("Contraseña actualizada");
+    } catch (error) {
+      return next(error);
     }
-    const decodedToken = verifytoken(token);
-    const userId = decodedToken.data;
-    const user = await service.readOne(userId);
-    if (!user) {
-      throw new Error("Usuario no encontrado");
-    }
-    req.user = user;
-    const { newPassword } = req.body;
-    await service.updatePassword(user, newPassword);
-    return res.success201("Contraseña actualizada");
-  } catch (error) {
-    return next(error);
-  }
-};
-
+  };
   badauth = (req, res, next) => {
     try {
       return res.error401();
@@ -120,10 +124,9 @@ verifyTokenAndProceed = async (req, res, next) => {
 export default SessionsController;
 const controller = new SessionsController();
 const {
-  register,
   login,
-  google,
-  github,
+  register,
+  isAuth,
   signout,
   badauth,
   verifyAccount,
@@ -131,10 +134,9 @@ const {
   verifyTokenAndProceed,
 } = controller;
 export {
-  register,
   login,
-  google,
-  github,
+  register,
+  isAuth,
   signout,
   badauth,
   verifyAccount,

@@ -1,14 +1,16 @@
 import repository from "../repositories/orders.repositories.js";
-import OrderDTO from "../dto/order.dto.js";
 
 class OrdersService {
   constructor() {
     this.repository = repository;
   }
   create = async (data) => {
-    data = new OrderDTO(data);
-    const response = await this.repository.create(data);
-    return response;
+    try {
+      const response = await this.repository.create(data);
+      return response;
+    } catch (error) {
+      throw error;
+    }
   };
   read = async ({ filter, options }) =>
     await this.repository.read({ filter, options });

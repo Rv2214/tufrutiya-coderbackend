@@ -1,4 +1,5 @@
 import env from "./src/utils/env.util.js";
+//import env from "./src/utils/env.util.js";
 
 import express from "express";
 import { createServer } from "http";
@@ -8,15 +9,14 @@ import { engine } from "express-handlebars";
 import cookieParser from "cookie-parser";
 import socketUtils from "./src/utils/socket.utils.js";
 import dbConnection from "./src/utils/db.js";
-import expressSesssion from "express-session";
+import expressSession from "express-session";
 import cors from "cors";
 import MongoStore from "connect-mongo";
 import args from "./src/utils/args.utils.js";
 import compression from "express-compression";
-import cluster from "cluster"
+import cluster from "cluster";
 import swaggerJSDoc from "swagger-jsdoc";
 import { serve, setup } from "swagger-ui-express";
-/* import { cpus } from "os"; */
 
 import IndexRouter from "./src/routers/index.router.js";
 import pathHandler from "./src/middlewares/pathHandler.mid.js";
@@ -24,11 +24,9 @@ import errorHandler from "./src/middlewares/errorHandler.mid.js";
 import __dirname from "./utils.js";
 import Handlebars from "handlebars";
 import wintson from "./src/middlewares/winston.js";
-import winston from "./src/utils/logger/winston.utils.js"
+import winston from "./src/utils/logger/winston.utils.js";
 import options from "./src/utils/swagger.js";
 
-/* const numberOfProcess = cpus().length
-console.log(numberOfProcess); */
 
 //server
 const server = express();
@@ -48,9 +46,9 @@ server.set("view engine", "handlebars");
 server.set("views", __dirname + "/src/views");
 Handlebars.registerPartial("navbar", "/src/views/partials");
 
-const specs = swaggerJSDoc(options)
+const specs = swaggerJSDoc(options);
 //middlewares
-server.use("/api/docs", serve, setup(specs))
+server.use("/api/docs", serve, setup(specs));
 server.use(
   cors({
     origin: true,
@@ -58,7 +56,7 @@ server.use(
   })
 );
 server.use(
-  expressSesssion({
+  expressSession({
     secret: process.env.SECRET_KEY,
     resave: true,
     saveUninitialized: true,
@@ -68,15 +66,8 @@ server.use(
     }),
   })
 );
-server.use(cookieParser());
-server.use(
-  expressSesssion({
-    secret: process.env.SECRET_KEY,
-    resave: true, //permite que permanezca activa la session
-    saveUninitialized: true, //permite mantener una session vacia iniciada
-    cookie: { maxAge: 60000 },
-  })
-);
+server.use(cookieParser(process.env.SECRET));
+
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static(__dirname + "/public"));
@@ -94,13 +85,12 @@ export { socketServer };
 
 winston.INFO("args: ", args);
 
-
 //clusters
-console.log(cluster.isPrimary);
-if(cluster.isPrimary){
-  console.log("PRIMARY ID: " +process.pid);
-  cluster.fork()
-}else{
-  console.log("WORKER ID: " +process.pid);
+winston.INFO(cluster.isPrimary);
+if (cluster.isPrimary) {
+  winston.INFO("PRIMARY ID: " + process.pid);
+  cluster.fork();
+} else {
+  winston.INFO("WORKER ID: " + process.pid);
   httpServer.listen(PORT, ready);
 }
