@@ -55,7 +55,6 @@ server.use(cookieParser(process.env.SECRET, {
   sameSite: 'none',
   secure: true
 }));
-
 server.use(
   expressSession({
     secret: process.env.SECRET_KEY,
