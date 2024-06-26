@@ -52,7 +52,7 @@ server.use("/api/docs", serve, setup(specs));
 //cors
 server.use(
   cors({
-    origin: 'https://tufrutiya-coder-react-git-main-rodrigos-projects-40cd6040.vercel.app',
+    origin: 'https://tufrutiya-coder-react.vercel.app',
     credentials: true,
   })
 );
