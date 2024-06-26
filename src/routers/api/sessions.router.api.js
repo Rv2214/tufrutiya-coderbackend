@@ -13,7 +13,7 @@ import {
 class SessionsRouter extends CustomRouter {
   init() {
     this.create("/register", ["PUBLIC"], passCallBack("register"), register);
-    this.create("/login", ["PUBLIC"], passCallBack("login"), login);
+    this.create("/login", ["PUBLIC"], passCallBack("login"), login)
     this.create(
       "/signout",
       ["USER", "ADMIN", "PREM"],
@@ -24,7 +24,7 @@ class SessionsRouter extends CustomRouter {
     this.create("/forgot-password", ["PUBLIC"], recoveryPassword);
     this.update("/resetpassword/:token", ["PUBLIC"], verifyTokenAndProceed);
     this.use("/verify-account", verifyAccount);
-    this.use("/isauth", passCallBack("jwt"), (req, res) => {
+    this.create("/isauth",["PUBLIC"], passCallBack("jwt"), (req, res) => {
       res.json({ user: req.user });
     });
   }

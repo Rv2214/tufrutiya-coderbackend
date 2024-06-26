@@ -11,11 +11,9 @@ selector.addEventListener("click", async () => {
       body: JSON.stringify(data),
     };
     let response = await fetch("/api/sessions/login", opts);
-    response = await response.json();
     if (response.statusCode === 200) {
-      alert("Usuario logeado correctamente");
+      alert(`Usuario logeado correctamente`);
       location.replace("/products");
-      //localStorage.setItem("token", response.token);
     } else {
       alert("ERROR: " + response.message);
     }

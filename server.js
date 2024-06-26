@@ -30,7 +30,7 @@ import options from "./src/utils/swagger.js";
 
 //server
 const server = express();
-const PORT = env.PORT || 8080;
+const PORT = env.PORT || 8081;
 const ready = () => {
   winston.INFO("server ready on port: " + PORT);
 };
@@ -49,9 +49,10 @@ Handlebars.registerPartial("navbar", "/src/views/partials");
 const specs = swaggerJSDoc(options);
 //middlewares
 server.use("/api/docs", serve, setup(specs));
+//cors
 server.use(
   cors({
-    origin: true,
+    origin: 'https://tufrutiya-coder-react-git-main-rodrigos-projects-40cd6040.vercel.app',
     credentials: true,
   })
 );
