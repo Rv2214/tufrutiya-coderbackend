@@ -51,8 +51,10 @@ const specs = swaggerJSDoc(options);
 server.use("/api/docs", serve, setup(specs));
 //cors
 server.use(cors({ origin: true, credentials: true }));
-server.use(cookieParser(process.env.SECRET));
-
+server.use(cookieParser(process.env.SECRET, {
+  sameSite: 'none',
+  secure: true
+}));
 server.use(
   expressSession({
     secret: process.env.SECRET_KEY,
@@ -62,9 +64,6 @@ server.use(
       ttl: 7 * 24 * 60 * 60,
       mongoUrl: process.env.DB_LINK,
     }),
-    cookie: {
-      sameSite: 'none',
-    },
   })
 );
 
