@@ -50,12 +50,7 @@ const specs = swaggerJSDoc(options);
 //middlewares
 server.use("/api/docs", serve, setup(specs));
 //cors
-server.use(
-  cors({
-    origin: 'https://tufrutiya-coder-react.vercel.app',
-    credentials: true,
-  })
-);
+server.use(cors({ origin: true, credentials: true }));
 server.use(cookieParser(process.env.SECRET));
 
 server.use(
