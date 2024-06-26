@@ -56,6 +56,8 @@ server.use(
     credentials: true,
   })
 );
+server.use(cookieParser(process.env.SECRET));
+
 server.use(
   expressSession({
     secret: process.env.SECRET_KEY,
@@ -65,9 +67,11 @@ server.use(
       ttl: 7 * 24 * 60 * 60,
       mongoUrl: process.env.DB_LINK,
     }),
+    cookie: {
+      sameSite: 'none',
+    },
   })
 );
-server.use(cookieParser(process.env.SECRET));
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
